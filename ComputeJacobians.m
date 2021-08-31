@@ -104,5 +104,8 @@ uvms.v_rho_r = ReducedVersorLemma(uvms.v_iv,uvms.v_dp);
 uvms.v_n_r = uvms.v_rho_r/norm(uvms.v_rho_r);
 
 uvms.Jlr = uvms.v_n_r'*[zeros(3,7) -1/(norm(uvms.v_dp)^2)*skew(uvms.v_dp) -eye(3,3)]; 
+%% Vehicle constrainrs 
+uvms.Jvc_lin = [zeros(3,7) eye(3) zeros(3)];
+uvms.Jvc_ang = [zeros(3,7) zeros(3) eye(3)];
 
 end

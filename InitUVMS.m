@@ -53,7 +53,9 @@ uvms.Jha = [];
 uvms.Jact = []; %jacobian for altitude control task
 uvms.Jua = []; % underactuated J
 uvms.Jla = []; % for landing of Ex 3
-uvms.Jlr = zeros(3,13);
+uvms.Jlr = zeros(3,13); % landing aligned to the rock 
+uvms.Jvc_lin = [];
+uvms.Jvc_ang = [];
 
 
 
@@ -65,6 +67,7 @@ uvms.xdot.ha = [];
 uvms.xdot.act = []; %altitude control task for ex2
 uvms.xdot.ua = [];
 uvms.xdot.lr = [];
+uvms.xdot.vc = [];
     
 uvms.A.jl = zeros(7,7);
 uvms.A.mu = 0;
@@ -75,6 +78,8 @@ uvms.A.act = 0;
 uvms.A.ua = 0; % activation underactuated 
 uvms.A.la = 0; 
 uvms.A.lr = 0;
+uvms.A.vc_lin = zeros(3);
+uvms.A.vc_ang = zeros(3);
 
 uvms.Aa.vpos = eye(3);
 uvms.Aa.vatt = eye(3);
