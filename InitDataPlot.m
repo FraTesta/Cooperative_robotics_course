@@ -49,9 +49,12 @@ function [plt] = InitDataPlot( maxloops, uvms)
     plt.floor = 0;
     
     plt.Ala = 0;
-    % landing alig with rock
-    plt.rock_n = zeros(3:1);
-    plt.rock_misAl = zeros(3:1);
+    
+%% landing alig with rock
+    plt.misRock = 0;
 
+    plt.A.mis = 0;
+    plt.A.alt = 0;
+    plt.A.all = 0;
 end
 

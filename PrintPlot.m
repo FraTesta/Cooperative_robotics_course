@@ -164,12 +164,32 @@ ylabel('altitude [m]');
 legend( 'Activation function');
 %% align with rock
 figure(11);
-hplot1 = plot(plt.t, plt.rock_misAl.x);
-set( hplot1,'LineWidth', 2);
-title('Misalignment w.r.t. rock');
+subplot(2,2,1);
+hplot1 = plot(plt.t, plt.misRock);
+set( hplot1,'Color','red','LineWidth', 2);
+title('Misalignment w.r.t. the rock');
 xlabel('time [s]');
 ylabel('[rad]');
-legend( 'Misalignment along x');
+
+subplot(2,2,2);
+hplot2 = plot(plt.t, plt.A.mis);
+set( hplot2,'LineWidth', 2);
+title('Activation function (misalignment)');
+xlabel('time [s]');
+ylabel('Activation');
+subplot(2,2,3);
+hplot3 = plot(plt.t, plt.A.alt);
+set( hplot3,'LineWidth', 2);
+title('Activation function (Altitude)');
+xlabel('time [s]');
+ylabel('Activation');
+
+subplot(2,2,4);
+hplot4 = plot(plt.t, plt.A.all);
+set( hplot4,'Color','green','LineWidth', 2);
+title('Complete Activation function');
+xlabel('time [s]');
+ylabel('Activation')
 
 
 end

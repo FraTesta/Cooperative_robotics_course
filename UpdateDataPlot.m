@@ -81,6 +81,9 @@ plt.maxTre(:,loop) = uvms.Aact.maxTre;
 plt.floor(:,loop) = w_vglin(3) - uvms.v_altitude;
 
 plt.Ala(:,loop) = uvms.A.la;
-% align with rock
-plt.rock_misAl.x = uvms.v_rho_r(1);
+%% align with rock
+plt.misRock(:,loop) = norm(uvms.v_rho_r);
+plt.A.mis(:,loop) = uvms.Aa.lr;
+plt.A.alt(:,loop) = DecreasingBellShapedFunction(0.8, 1.5, 0, 1 , uvms.v_altitude);
+plt.A.all(:,loop) = uvms.A.lr;
 end

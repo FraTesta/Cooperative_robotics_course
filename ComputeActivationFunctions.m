@@ -33,7 +33,7 @@ uvms.A.vatt = eye(3) * uvms.Aa.vatt;
 uvms.A.ha = IncreasingBellShapedFunction(0.1, 0.2, 0, 1 , norm(uvms.v_rho)) * uvms.Aa.ha;
 uvms.A.act = DecreasingBellShapedFunction(1, 1.5, 0, 1 , uvms.v_altitude) * uvms.Aa.act;
 uvms.A.la = eye(1) * uvms.Aa.la;
-uvms.A.lr = eye(1) * uvms.Aa.lr;
+uvms.A.lr = DecreasingBellShapedFunction(1, 2.0, 0, 1 , uvms.v_altitude) * uvms.Aa.lr;
 %% underactuation 
 % select only the underactuated component (w_x) as explained in the notes
 uvms.A.ua = diag([0 0 0 1 0 0 ]);

@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 25; %25
+end_time = 15; %25
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -76,7 +76,7 @@ uvms.eTt = eye(4);
 %uvms.vgoalPosition = [10.2025   37.3748  -38.8860+2]'; % goal position w.r.t veichle frame 
 % uvms.vgoalPosition = [12 30 -33]'; % 1.1 inventato
 % uvms.vgoalPosition = [10.5 37.5 -38]'; % 1.2
-uvms.vgoalPosition = [10.5 37.5 -38]';
+uvms.vgoalPosition = [10.5 37.5 -35]';
 %uvms.vgoalPosition = rock_center;
 % uvms.wRgv = rotation(0 ,0 ,0); % R matrix goal w.r.t vehicle projected on world frame in order to have the goal frame parallel to ground
 % uvms.wRgv = rotation(0 , pi/3 ,0); % R matrix to place the goal 45° w.r.t. the ground, use it to test the allignment ground task
@@ -159,13 +159,13 @@ for t = 0:deltat:end_time
     if (mod(t,0.1) == 0)
         t = mission.phase_time
         %uvms.sensorDistance  % sensor distance
-        [w_vang,w_vlin] = CartError(uvms.wTgv , uvms.wTv);  % real distance
-         floor = w_vlin(3) - uvms.v_altitude
+%         [w_vang,w_vlin] = CartError(uvms.wTgv , uvms.wTv);  % real distance
+%          floor = w_vlin(3) - uvms.v_altitude
 %         goal_distance = norm(w_vlin)
         %nlin = norm(w_vlin);
         %nang = norm(w_vang);
         
-        %phase = mission.phase % which action is executed 
+        phase = mission.phase % which action is executed 
         %goal_plan_distance = uvms.plan_goal_dist % for Ex 3
         %activ = uvms.A.act
 %         alt = uvms.v_altitude

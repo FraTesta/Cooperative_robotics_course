@@ -34,7 +34,7 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
             uvms.Aa.lr = 0;
             [w_vang,w_vlin] = CartError(uvms.wTgv , uvms.wTv); % distance from the goal
             uvms.plan_goal_dist = sqrt(w_vlin(1)^2 + w_vlin(2)^2); % planar dinstance from the goal (only along x and y)
-            if(uvms.plan_goal_dist < 0.05) % if it is under 10 cm
+            if(uvms.plan_goal_dist < 0.2) % if it is under 10 cm
                 mission.phase = 2;
                 mission.phase_time = 0;
             end
@@ -60,7 +60,8 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
             %uvms.Aa.act = DecreasingBellShapedFunction(0, 2, 0, 1 , mission.phase_time);
             uvms.Aa.act = 0;
             uvms.Aa.la = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
-            uvms.Aa.lr = eye(1);
+
+            uvms.Aa.lr = IncreasingBellShapedFunction(-0.2, 0.3, 0, 1, norm(uvms.v_rho_r));
     end
 end
 
