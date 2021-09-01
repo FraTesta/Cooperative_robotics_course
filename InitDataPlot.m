@@ -24,7 +24,7 @@ function [plt] = InitDataPlot( maxloops, uvms)
     
     plt.v_initPos = uvms.v_init_pose;
     plt.goalPos = uvms.goalPosition;
-    plt.v_goalPos = uvms.vgoalPosition;
+%     plt.v_goalPos = uvms.vgoalPosition;
     
     plt.final_v_pose = zeros(3,1);
     plt.final_t_pose = zeros(3,1);
@@ -56,5 +56,8 @@ function [plt] = InitDataPlot( maxloops, uvms)
     plt.A.mis = 0;
     plt.A.alt = 0;
     plt.A.all = 0;
+%% Joint Limits
+    plt.A.jl_min = 0;
+    plt.A.jl_max = 0;
 end
 

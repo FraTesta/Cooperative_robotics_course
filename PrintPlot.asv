@@ -202,14 +202,11 @@ title('Activation min joint limits task');
 hplot1 = plot(plt.t, plt.A.jl_min(1:7,:));
 set( hplot1,'LineWidth', 2);
 legend('Aq1','Aq2','Aq3','Aq4','Aq5','Aq6','Aq7');
-xlabel('time [s]');
-ylabel('Activation');
-
 subplot(2,1,2);
-title('Activation max joint limits task');
 hplot1 = plot(plt.t, plt.A.jl_max(1:7,:));
 set( hplot1,'LineWidth', 2);
-legend('Aq1','Aq2','Aq3','Aq4','Aq5','Aq6','Aq7');
+
+
 xlabel('time [s]');
 ylabel('Activation');
 end

@@ -61,7 +61,7 @@ uvms.Jjl = [];
 
 uvms.xdot.jl = [];
 uvms.xdot.mu = [];
-uvms.xdot.ha = [];
+uvms.xdot.ha = 0;
 uvms.xdot.t = [];
 uvms.xdot.ha = [];
 uvms.xdot.act = []; %altitude control task for ex2
@@ -83,7 +83,8 @@ uvms.A.lr = 0;
 uvms.A.vc_lin = zeros(3);
 uvms.A.vc_ang = zeros(3);
 uvms.A.vc = zeros(6);
-uvms.A.jl = zeros(7);
+uvms.A.jl_min = zeros(7);
+uvms.A.jl_max = zeros(7);
 
 uvms.Aa.vpos = eye(3);
 uvms.Aa.vatt = eye(3);
@@ -93,6 +94,7 @@ uvms.Aa.act = eye(1);
 uvms.Aa.la = eye(1);
 uvms.Aa.lr = eye(1);
 uvms.Aa.vc = eye(6);
+uvms.Aa.jl = eye(7);
 
 uvms.v_init_pose = zeros(3:1);
 uvms.v_rho= zeros(3:1); % for es 2
