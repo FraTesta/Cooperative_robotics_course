@@ -98,7 +98,7 @@ uvms.Aa.jl = eye(7);
 
 uvms.v_init_pose = zeros(3:1);
 uvms.v_rho= zeros(3:1); % for es 2
-uvms.v_n = zeros(3:1); % for es 2
+uvms.v_n = zeros(3,1); % for es 2
 uvms.v_altitude = 0;
 uvms.plan_goal_dist = eye(1); % for es 3 
 uvms.v_rho_r = zeros(3:1);
