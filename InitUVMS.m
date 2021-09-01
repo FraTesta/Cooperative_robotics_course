@@ -96,6 +96,7 @@ uvms.Aa.la = eye(1);
 uvms.Aa.lr = eye(1);
 uvms.Aa.vc = eye(6);
 uvms.Aa.jl = eye(7);
+uvms.Aa.ps = eye(4);
 
 uvms.v_init_pose = zeros(3:1);
 uvms.v_rho= zeros(3:1); % for es 2
