@@ -37,7 +37,7 @@ uvms.djdq = zeros(6,7,7);
 uvms.mu  = 0;
 uvms.phi = zeros(3,1);
 uvms.sensorDistance = 0;
-uvms.v_altitude = 0;
+
 
 
 uvms.wTgv = eye(4,4); % ex 1 take a look at UpdateTransforms to see how it's compute 
@@ -54,8 +54,8 @@ uvms.Jact = []; %jacobian for altitude control task
 uvms.Jua = []; % underactuated J
 uvms.Jla = []; % for landing of Ex 3
 uvms.Jlr = zeros(3,13); % landing aligned to the rock 
-uvms.Jvc_lin = [];
-uvms.Jvc_ang = [];
+uvms.Jvc = [];
+uvms.Jjl = [];
 
 
 
@@ -68,6 +68,8 @@ uvms.xdot.act = []; %altitude control task for ex2
 uvms.xdot.ua = [];
 uvms.xdot.lr = [];
 uvms.xdot.vc = [];
+uvms.xdot.jl_min = [];
+uvms.xdot.jl_max = [];
     
 uvms.A.jl = zeros(7,7);
 uvms.A.mu = 0;
@@ -80,6 +82,8 @@ uvms.A.la = 0;
 uvms.A.lr = 0;
 uvms.A.vc_lin = zeros(3);
 uvms.A.vc_ang = zeros(3);
+uvms.A.vc = zeros(6);
+uvms.A.jl = zeros(7);
 
 uvms.Aa.vpos = eye(3);
 uvms.Aa.vatt = eye(3);
@@ -88,13 +92,14 @@ uvms.Aa.t = zeros(6);
 uvms.Aa.act = eye(1);
 uvms.Aa.la = eye(1);
 uvms.Aa.lr = eye(1);
+uvms.Aa.vc = eye(6);
 
 uvms.v_init_pose = zeros(3:1);
 uvms.v_rho= zeros(3:1); % for es 2
 uvms.v_n = zeros(3:1); % for es 2
+uvms.v_altitude = 0;
 uvms.plan_goal_dist = eye(1); % for es 3 
 uvms.v_rho_r = zeros(3:1);
-uvms.v_n_r = zeros(3:1);
 uvms.w_rock_center = [12.2025   37.3748  -39.8860]';
 uvms.v_dp = zeros(3,1);
 uvms.v_iv = zeros(3,1);

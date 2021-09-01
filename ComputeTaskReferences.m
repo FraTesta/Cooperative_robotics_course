@@ -44,5 +44,9 @@ uvms.xdot.la = 0.5 * (0 - norm(uvms.v_altitude));
 uvms.xdot.lr = 1.5 * (0 - norm(uvms.v_rho_r));
 % uvms.xdot.lr = Saturate(0.2, uvms.v_rho_r);
 %% Vehicle constraints
-uvms.xdot.vc_lin = 0.5 * (zeros(3,1) - uvms.p_dot(1:3));
-uvms.xdot.vc_ang = 0.5 * (zeros(3,1) - uvms.p_dot(4:6));
+% uvms.xdot.vc_lin = 0.5 * (zeros(3,1) - uvms.p_dot(1:3));
+% uvms.xdot.vc_ang = 0.5 * (zeros(3,1) - uvms.p_dot(4:6));
+uvms.xdot.vc = 0.5 * (zeros(6,1) - uvms.p_dot);
+%% Joint limits
+uvms.xdot.jl_min = 0.5 * (uvms.jlmin - uvms.q);
+uvms.xdot.jl_max = 0.5 * (uvms.jlmax - uvms.q);
