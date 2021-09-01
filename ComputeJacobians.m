@@ -42,6 +42,8 @@ uvms.Jt_v = [zeros(3) eye(3); eye(3) -skew(uvms.vTt(1:3,4))];
 % juxtapose the two Jacobians (J of the tool that depends on the arm +
 % depends of the vehicle contributions) to reach the goal with the e.e. (tool frame)
 uvms.Jt = [uvms.Jt_a uvms.Jt_v];
+%% Manipulability
+% [uvms.Jqmu,uvms.mu] = ComputeManipulability(J, uvms.djdq)
 
 %% EX 1
 % For exercise 1 Instead make a single J = [angular vel ; linear vel] I
@@ -95,9 +97,6 @@ uvms.Jla = [zeros(1,7) v_kw' zeros(1,3)];
 
 %% Alignment to the rock
 uvms.v_iv = [1 0 0]';
-% uvms.w_iv = wTv(1:3,1:3)*uvms.v_iv
-% w_ir = [1 0 0]';
-% v_ir = uvms.vTw(1:3,1:3) * w_ir;
 uvms.w_iv =uvms.vTw(1:3,1:3) * uvms.v_iv;
 
 w_d = uvms.w_rock_center - uvms.p(1:3); % controllare verso
@@ -116,5 +115,6 @@ Jvc_ang = [zeros(3,7) zeros(3) eye(3)];
 uvms.Jvc = [Jvc_lin; Jvc_ang];
 %% Joint limits
 uvms.Jjl = [eye(7) zeros(7,3) zeros(7,3)];
-
+%% Joint Prefered shape 
+uvms.Jps = [eye(4) zeros(4,3) zeros(4,3) zeros(4,3)];
 end

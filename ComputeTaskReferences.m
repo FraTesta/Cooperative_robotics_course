@@ -50,3 +50,8 @@ uvms.xdot.vc = 0.5 * (zeros(6,1) - uvms.p_dot);
 %% Joint limits
 uvms.xdot.jl_min = 0.5 * (uvms.jlmin - uvms.q);
 uvms.xdot.jl_max = 0.5 * (uvms.jlmax - uvms.q);
+%% Joint prefered shape
+uvms.pref_shape = [-0.0031 1.2585 0.0128 -1.2460]';
+uvms.xdot.ps = 0.5 * (uvms.pref_shape - uvms.q(1:4));
+
+

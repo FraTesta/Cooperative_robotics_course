@@ -24,6 +24,7 @@ function [uvms] = ComputeActivationFunctions(uvms, mission)
 % uvms.A.jl_min(j,j) = DecreasingBellShapedFunction(uvms.jlmin(j) + 0.3, uvms.jlmin(j), 0, 1, uvms.q(j)) ;
 % uvms.A.jl_max(j,j) = IncreasingBellShapedFunction(uvms.jlmax(j) - 0.3, uvms.jlmax(j), 0, 1, uvms.q(j)) ;
 % end
+uvms.A.ps = eye(4);
 
 %% With Multipe actions implementation
 

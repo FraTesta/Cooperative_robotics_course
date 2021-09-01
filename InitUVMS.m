@@ -49,14 +49,13 @@ uvms.Jt_a = [];
 uvms.Jt_v = [];
 uvms.Jt = [];
 uvms.Jha = [];
-
 uvms.Jact = []; %jacobian for altitude control task
 uvms.Jua = []; % underactuated J
 uvms.Jla = []; % for landing of Ex 3
 uvms.Jlr = zeros(3,13); % landing aligned to the rock 
 uvms.Jvc = [];
 uvms.Jjl = [];
-
+uvms.Jps = [];
 
 
 uvms.xdot.jl = [];
@@ -70,6 +69,7 @@ uvms.xdot.lr = [];
 uvms.xdot.vc = [];
 uvms.xdot.jl_min = [];
 uvms.xdot.jl_max = [];
+uvms.xdot.ps = [];
     
 uvms.A.jl = zeros(7,7);
 uvms.A.mu = 0;
@@ -85,6 +85,7 @@ uvms.A.vc_ang = zeros(3);
 uvms.A.vc = zeros(6);
 uvms.A.jl_min = zeros(7);
 uvms.A.jl_max = zeros(7);
+uvms.A.ps = zeros(4);
 
 uvms.Aa.vpos = eye(3);
 uvms.Aa.vatt = eye(3);
@@ -105,6 +106,7 @@ uvms.v_rho_r = zeros(3:1);
 uvms.w_rock_center = [12.2025   37.3748  -39.8860]';
 uvms.v_dp = zeros(3,1);
 uvms.v_iv = zeros(3,1);
+uvms.pref_shape = zeros(4,1);
 
  uvms.Aact.minTre = 0;
  uvms.Aact.maxTre = 0;
