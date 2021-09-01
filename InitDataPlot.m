@@ -24,7 +24,7 @@ function [plt] = InitDataPlot( maxloops, uvms)
     
     plt.v_initPos = uvms.v_init_pose;
     plt.goalPos = uvms.goalPosition;
-%     plt.v_goalPos = uvms.vgoalPosition;
+     plt.v_goalPos = uvms.vgoalPosition;
     
     plt.final_v_pose = zeros(3,1);
     plt.final_t_pose = zeros(3,1);
