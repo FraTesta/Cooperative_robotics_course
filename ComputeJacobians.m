@@ -43,9 +43,11 @@ uvms.Jt_v = [zeros(3) eye(3); eye(3) -skew(uvms.vTt(1:3,4))];
 % depends of the vehicle contributions) to reach the goal with the e.e. (tool frame)
 uvms.Jt = [uvms.Jt_a uvms.Jt_v];
 %% Manipulability
-% [uvms.Jqmu,uvms.mu] = ComputeManipulability(J, uvms.djdq)
+% compute manipulability Jacobian
+[Jmu_a, uvms.mu] = ComputeManipulability(uvms.bJe, uvms.djdq);
+uvms.Jmu = [Jmu_a zeros(1,6)];
 
-%% EX 1
+%% EX 1 (Vehicle control)
 % For exercise 1 Instead make a single J = [angular vel ; linear vel] I
 % chose to keep the two velocities separate in other to have two differet
 % tasks (but it's the same thing ). The objective is to reach the goal
@@ -58,7 +60,8 @@ uvms.Jvatt = [zeros(3,7) zeros(3,3)  uvms.wTv(1:3,1:3)];  % jacobian for the att
 % As I said I didn't join the two jacobians as usually  
 %uvms.Jv = [uvms.Jv_linear ; uvms. Jv_angular];
 
-%% EX  missalignment of Kw w.r.t Kv (so veichle parallal w.r.t the ground)
+%% Horizontal Attitude 
+% Missalignment of Kw w.r.t Kv (so veichle parallal w.r.t the ground)
 % see notes
 w_kw = [0 0 1]'; % n vector k axis of frame 
 v_kv = [0 0 1]';

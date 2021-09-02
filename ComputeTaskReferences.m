@@ -14,6 +14,8 @@ uvms.xdot.t = 0.2 * [ang; lin]; % generation of the reference velocities where 0
 uvms.xdot.t(1:3) = Saturate(uvms.xdot.t(1:3), 0.2);
 uvms.xdot.t(4:6) = Saturate(uvms.xdot.t(4:6), 0.2);
 
+%% Manipulability
+uvms.xdot.mu = 0.1 *(0.12 - uvms.mu);
 %% Ex1
 % compute the distance and the misalginment from the goal to the vehicle
 % projected on the world frame 

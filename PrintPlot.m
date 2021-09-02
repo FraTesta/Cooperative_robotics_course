@@ -59,28 +59,28 @@ zlabel('z [m]');
 title("Path towards goals");
 %set(hplot, 'LineWidth', 1);
 legend( 'Path of the vehicle frame','Start position','Final Vehicle position','Final tool position','Vehicle Goal position','Tool Goal position');
-%% Misalignment vector (unit vector)
+%% Horizontal Attitude Misalignment vector  (unit vector)
 
-% figure(6);
-% title("Misalignment of the vehicle w.r.t the seafloor")
-% subplot(3,1,1);
-% hplot = plot(plt.t, plt.misAlig.x);
-% set(hplot,'Color','red', 'LineWidth', 2);
-% legend( 'Misalignment along x');
-% xlabel('time [s]');
-% ylabel('[rad]');
-% subplot(3,1,2);
-% hplot = plot(plt.t, plt.misAlig.y);
-% set(hplot, 'LineWidth', 2);
-% legend( 'Misalignment along y');
-% xlabel('time [s]');
-% ylabel('[rad]');
-% subplot(3,1,3);
-% hplot = plot(plt.t, plt.misAlig.z);
-% set(hplot,'Color','green', 'LineWidth', 2);
-% legend( 'Misalignment along z');
-% xlabel('time [s]');
-% ylabel('[rad]');
+figure(6);
+title("Misalignment of the vehicle w.r.t the seafloor")
+subplot(3,1,1);
+hplot = plot(plt.t, plt.misAlig.x);
+set(hplot,'Color','red', 'LineWidth', 2);
+legend( 'Misalignment along x');
+xlabel('time [s]');
+ylabel('[rad]');
+subplot(3,1,2);
+hplot = plot(plt.t, plt.misAlig.y);
+set(hplot, 'LineWidth', 2);
+legend( 'Misalignment along y');
+xlabel('time [s]');
+ylabel('[rad]');
+subplot(3,1,3);
+hplot = plot(plt.t, plt.misAlig.z);
+set(hplot,'Color','green', 'LineWidth', 2);
+legend( 'Misalignment along z');
+xlabel('time [s]');
+ylabel('[rad]');
 
 %% Dinstance and misalignment norm w.r.t. the tool and vehicle goals 
 
@@ -113,14 +113,14 @@ xlabel('t[s]');
 ylabel('[m]');
 set(hplot,'Color','green', 'LineWidth', 2);
 legend('Misalignment norm');
-%% Horizontal altidtude control task
-% figure(8);
-% hplot = plot(plt.t, plt.misActFunc);
-% title('Activation Function of Horizontal altitude');
-% xlabel('time [s]');
-% ylabel('Activation value');
-% set( hplot, 'LineWidth', 2);
-% legend( 'Activation function');
+%% Horizontal altidtude Activation function
+figure(8);
+hplot = plot(plt.t, plt.misActFunc);
+title('Activation Function of Horizontal altitude');
+xlabel('time [s]');
+ylabel('Activation value');
+set( hplot, 'LineWidth', 2);
+legend( 'Activation function');
 %% Altitude 
 % figure(9);
 % subplot(2,1,1);
@@ -149,52 +149,50 @@ legend('Misalignment norm');
 % ylabel('altitude [m]');
 % legend( 'Activation function ');
 %% Landing
-figure(10);
-subplot(2,1,1);
-hplot1 = plot(plt.t, plt.altitude);
-set( hplot1, 'Color','green','LineWidth', 2);
-title('Altitude in landing task');
-xlabel('time [s]');
-ylabel('altitude [m]');
-legend( 'Altitude of the vehicle');
-% hold on;
-% hplot2 = plot(plt.t, plt.floor);
-% set( hplot2,'Color','yellow', 'LineWidth', 2);
-subplot(2,1,2);
-hplot1 = plot(plt.t, plt.Ala);
-set( hplot1,'LineWidth', 2);
-title('Activation of landing task');
-xlabel('time [s]');
-ylabel('altitude [m]');
-legend( 'Activation function');
+% figure(10);
+% subplot(2,1,1);
+% hplot1 = plot(plt.t, plt.altitude);
+% set( hplot1, 'Color','green','LineWidth', 2);
+% title('Altitude in landing task');
+% xlabel('time [s]');
+% ylabel('altitude [m]');
+% legend( 'Altitude of the vehicle');
+% 
+% subplot(2,1,2);
+% hplot1 = plot(plt.t, plt.Ala);
+% set( hplot1,'LineWidth', 2);
+% title('Activation of landing task');
+% xlabel('time [s]');
+% ylabel('altitude [m]');
+% legend( 'Activation function');
 %% align with rock
-figure(11);
-subplot(2,2,1);
-hplot1 = plot(plt.t, plt.misRock);
-set( hplot1,'Color','red','LineWidth', 2);
-title('Misalignment w.r.t. the rock');
-xlabel('time [s]');
-ylabel('[rad]');
-
-subplot(2,2,2);
-hplot2 = plot(plt.t, plt.A.mis);
-set( hplot2,'LineWidth', 2);
-title('Activation function (misalignment)');
-xlabel('time [s]');
-ylabel('Activation');
-subplot(2,2,3);
-hplot3 = plot(plt.t, plt.A.alt);
-set( hplot3,'LineWidth', 2);
-title('Activation function (Altitude)');
-xlabel('time [s]');
-ylabel('Activation');
-
-subplot(2,2,4);
-hplot4 = plot(plt.t, plt.A.all);
-set( hplot4,'Color','green','LineWidth', 2);
-title('Complete Activation function');
-xlabel('time [s]');
-ylabel('Activation')
+% figure(11);
+% subplot(2,2,1);
+% hplot1 = plot(plt.t, plt.misRock);
+% set( hplot1,'Color','red','LineWidth', 2);
+% title('Misalignment w.r.t. the rock');
+% xlabel('time [s]');
+% ylabel('[rad]');
+% 
+% subplot(2,2,2);
+% hplot2 = plot(plt.t, plt.A.mis);
+% set( hplot2,'LineWidth', 2);
+% title('Activation function (misalignment)');
+% xlabel('time [s]');
+% ylabel('Activation');
+% subplot(2,2,3);
+% hplot3 = plot(plt.t, plt.A.alt);
+% set( hplot3,'LineWidth', 2);
+% title('Activation function (Altitude)');
+% xlabel('time [s]');
+% ylabel('Activation');
+% 
+% subplot(2,2,4);
+% hplot4 = plot(plt.t, plt.A.all);
+% set( hplot4,'Color','green','LineWidth', 2);
+% title('Complete Activation function');
+% xlabel('time [s]');
+% ylabel('Activation')
 %% Joits limits
 % figure(12);
 % title('Joint Limits Activation functions');
@@ -214,9 +212,9 @@ ylabel('Activation')
 % xlabel('time [s]');
 % ylabel('Activation');
 %% Ex 6 
-figure(13);
-title('Activation Function Underactuated constraints');
-hplot1 = plot(plt.t, plt.A.ua);
-set( hplot1,'LineWidth', 2);
+% figure(13);
+% title('Activation Function Underactuated constraints');
+% hplot1 = plot(plt.t, plt.A.ua);
+% set( hplot1,'LineWidth', 2);
 end
 

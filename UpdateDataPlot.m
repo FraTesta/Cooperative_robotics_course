@@ -60,7 +60,7 @@ plt.final_t_pose = uvms.wTt(1:3,4);
 % plt.misAlig.x(:,loop) = uvms.v_n(1);
 % plt.misAlig.y(:,loop) = uvms.v_n(2);
 % plt.misAlig.z(:,loop) = uvms.v_n(3);
-%% Misalignment and distance norm w.r.t. the vehicle and tool goals 
+%% Horizontal Attitude, Misalignment and distance norm w.r.t. the vehicle and tool goals 
 % vehicle errors
 [w_vgang,w_vglin] = CartError(uvms.wTgv , uvms.wTv);
 plt.v_misNorm(:,loop) = norm(w_vgang);

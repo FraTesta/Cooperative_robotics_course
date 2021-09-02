@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 20;
+end_time = 25;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -54,7 +54,7 @@ uvms.goalPosition = pipe_center + (pipe_radius + distanceGoalWrtPipe)*[0 0 1]';
 uvms.wRg = rotation(pi,0,0);
 uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
-offset = 1;
+offset = 1.5;
 uvms.vgoalPosition = pipe_center + (pipe_radius + distanceGoalWrtPipe + offset)*[0 0 1]';
 uvms.wRgv = rotation(0, -0.06 ,0.5); %1.2
 uvms.wTgv = [uvms.wRgv uvms.vgoalPosition; 0 0 0 1]; % new matrix which rappresent the goal from the veichle

@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 20; %25
+end_time = ; %25
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -55,7 +55,7 @@ uvms.q = [-0.0031 0 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
 % RPY angles are applied in the following sequence!!!!!!!!!!!!!!!!!!!!!!!!
 % R(rot_x, rot_y, rot_z) = Rz (rot_z) * Ry(rot_y) * Rx(rot_x)
 % uvms.v_init_pose = [10.5 35.5 -36   0 -0.06 1.57]'; % ex 1.1
-uvms.v_init_pose = [12.2025   37.3748 -37   0 -0.06 1.57]';
+uvms.v_init_pose = [12.2025   37.3748 -37   0 -0.06 1.57]'
 
 % uvms.v_init_pose = [48.5 11.5 -33   0 0.01 -1.57]'; % più basso
 % uvms.v_init_pose = [8.5 38.5 -38   0 -0.06 0.5]'; % original
