@@ -92,6 +92,7 @@ uvms.Aa.vatt = eye(3);
 uvms.Aa.ha = eye(1);
 uvms.Aa.t = zeros(6);
 uvms.Aa.act = eye(1);
+uvms.Aa.ua = eye(6);
 uvms.Aa.la = eye(1);
 uvms.Aa.lr = eye(1);
 uvms.Aa.vc = eye(6);

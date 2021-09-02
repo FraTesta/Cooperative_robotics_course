@@ -43,7 +43,7 @@ uvms.A.ps = eye(4) * uvms.Aa.ps;
 % end
 %% underactuation 
 % select only the underactuated component (w_x) as explained in the notes
-uvms.A.ua = diag([0 0 0 1 0 0 ]);
+uvms.A.ua = diag([0 0 0 1 0 0 ]) * uvms.Aa.ua;
 
 
 end 

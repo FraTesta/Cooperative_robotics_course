@@ -88,6 +88,7 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
             uvms.Aa.ha = eye(1); % it's a scalar 
             uvms.Aa.t = zeros(6); % it's deactivated 
             uvms.Aa.ps = zeros(4);
+            uvms.Aa.ua = zeros(6);
             % planar dinstance from the goal (only along x and y)
             if(norm(uvms.wTgv - uvms.wTv) < 0.5) % if it is under 10 cm
                 mission.phase = 2;
@@ -98,6 +99,7 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
             uvms.Aa.vatt = zeros(3); % active
             uvms.Aa.ha = eye(1); % it's a scalar 
 %             uvms.Aa.t = IncreasingBellShapedFunction(0, 1, 0, 1, mission.phase_time);
+            uvms.Aa.ua = eye(6);
             uvms.Aa.t = eye(6);
             uvms.Aa.ps = eye(4); 
 end
