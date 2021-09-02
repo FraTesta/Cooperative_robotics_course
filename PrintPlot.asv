@@ -215,8 +215,8 @@ ylabel('Activation')
 % ylabel('Activation');
 %% Ex 6 
 figure(13);
-title('Activation Function Underactuated constraints');
-hplot1 = plot(plt.t, plt.A.ua);
+title('Activation Function Underactua')
+hplot1 = plot(plt.t, plt.A.jl_max(1:7,:));
 set( hplot1,'LineWidth', 2);
 end
 

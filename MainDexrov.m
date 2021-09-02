@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 25;
+end_time = 20;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -54,7 +54,7 @@ uvms.goalPosition = pipe_center + (pipe_radius + distanceGoalWrtPipe)*[0 0 1]';
 uvms.wRg = rotation(pi,0,0);
 uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
-offset = 2;
+offset = 1;
 uvms.vgoalPosition = pipe_center + (pipe_radius + distanceGoalWrtPipe + offset)*[0 0 1]';
 uvms.wRgv = rotation(0, -0.06 ,0.5); %1.2
 uvms.wTgv = [uvms.wRgv uvms.vgoalPosition; 0 0 0 1]; % new matrix which rappresent the goal from the veichle
@@ -96,7 +96,7 @@ for t = 0:deltat:end_time
     
     else
         % TPIK1
-
+        
         [Qp1, rhop1] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);
         [Qp1, rhop1] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp1, rhop1, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
         [Qp1, rhop1] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp1, rhop1, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame
@@ -110,7 +110,7 @@ for t = 0:deltat:end_time
         [Qp2, rhop2] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp2, rhop2, uvms.xdot.t,  0.0001,   0.01, 10);
         [Qp2, rhop2] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp2, rhop2, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
         [Qp2, rhop2] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp2, rhop2, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame        
-        [Qp, rhop2] = iCAT_task(uvms.A.ps,    uvms.Jps,    Qp2, rhop2, uvms.xdot.ps,  0.0001,   0.01, 10);
+        [Qp2, rhop2] = iCAT_task(uvms.A.ps,    uvms.Jps,    Qp2, rhop2, uvms.xdot.ps,  0.0001,   0.01, 10);
         [Qp2, rhop2] = iCAT_task(eye(13),     eye(13),    Qp2, rhop2, zeros(13,1),  0.0001,   0.01, 10);
         
         uvms.q_dot = rhop2(1:7);
@@ -120,7 +120,7 @@ for t = 0:deltat:end_time
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;
     % disturbances on wx of the vehicle
-    uvms.p_dot(4) = 0.5*sin(2*pi*0.5*t);
+    uvms.p_dot(4) = uvms.p_dot(4) + 0.2*sin(2*pi*0.5*t);
     % beware: p_dot should be projected on <v>
     uvms.p = integrate_vehicle(uvms.p, uvms.p_dot, deltat);
     

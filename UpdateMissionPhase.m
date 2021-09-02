@@ -95,8 +95,8 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
                 mission.phase_time = 0;
             end
          case 2
-            uvms.Aa.vpos = zeros(3); % active 
-            uvms.Aa.vatt = zeros(3); % active
+            uvms.Aa.vpos = eye(3); % active 
+            uvms.Aa.vatt = eye(3); % active
             uvms.Aa.ha = eye(1); % it's a scalar 
 %             uvms.Aa.t = IncreasingBellShapedFunction(0, 1, 0, 1, mission.phase_time);
             uvms.Aa.ua = eye(6);

@@ -83,9 +83,10 @@ for t = 0:deltat:end_time
 %     [Qp, rhop] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp, rhop, uvms.xdot.mu, 0.000001, 0.0001, 10);
     [Qp, rhop] = iCAT_task(uvms.A.ua,  uvms.Jua,    Qp, rhop, uvms.xdot.ua,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);
+    [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp, rhop, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
     [Qp, rhop] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp, rhop, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame
-    [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
+    
 %     [Qp, rhop] = iCAT_task(uvms.A.ps,    uvms.Jps,    Qp, rhop, uvms.xdot.ps,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
@@ -93,15 +94,27 @@ for t = 0:deltat:end_time
     uvms.q_dot = rhop(1:7);
     uvms.p_dot = rhop(8:13);
     
-    if mission.phase == 2
+    else
         % TPIK1
-        [Qp, rhop] = iCAT_task(uvms.A.ua,  uvms.Jua,    Qp, rhop, uvms.xdot.ua,  0.0001,   0.01, 10);
-        [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);
-        [Qp, rhop] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp, rhop, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
-        [Qp, rhop] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp, rhop, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame
-        [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
-%     [Qp, rhop] = iCAT_task(uvms.A.ps,    uvms.Jps,    Qp, rhop, uvms.xdot.ps,  0.0001,   0.01, 10);
-        [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10); 
+        
+        [Qp1, rhop1] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);
+        [Qp1, rhop1] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp1, rhop1, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
+        [Qp1, rhop1] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp1, rhop1, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame
+        [Qp1, rhop1] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp1, rhop1, uvms.xdot.t,  0.0001,   0.01, 10);
+        [Qp1, rhop1] = iCAT_task(uvms.A.ps,    uvms.Jps,    Qp1, rhop1, uvms.xdot.ps,  0.0001,   0.01, 10);
+        [Qp1, rhop1] = iCAT_task(eye(13),     eye(13),    Qp1, rhop1, zeros(13,1),  0.0001,   0.01, 10); 
+        
+        % TPIK2
+        [Qp2, rhop2] = iCAT_task(uvms.A.ua,  uvms.Jua,    Qp, rhop, uvms.xdot.ua,  0.0001,   0.01, 10);
+        [Qp2, rhop2] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp2, rhop2, uvms.xdot.ha, 0.0001,   0.01, 10);
+        [Qp2, rhop2] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp2, rhop2, uvms.xdot.t,  0.0001,   0.01, 10);
+        [Qp2, rhop2] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp2, rhop2, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
+        [Qp2, rhop2] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp2, rhop2, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame        
+        [Qp2, rhop2] = iCAT_task(uvms.A.ps,    uvms.Jps,    Qp2, rhop2, uvms.xdot.ps,  0.0001,   0.01, 10);
+        [Qp2, rhop2] = iCAT_task(eye(13),     eye(13),    Qp2, rhop2, zeros(13,1),  0.0001,   0.01, 10);
+        
+        uvms.q_dot = rhop2(1:7);
+        uvms.p_dot = rhop1(8:13);
     end
     
     % Integration
