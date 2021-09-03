@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 15; %25
+end_time = 20; %25
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -76,10 +76,10 @@ uvms.eTt = eye(4);
 %uvms.vgoalPosition = [10.2025   37.3748  -38.8860+2]'; % goal position w.r.t veichle frame 
 % uvms.vgoalPosition = [12 30 -33]'; % 1.1 inventato
 % uvms.vgoalPosition = [10.5 37.5 -38]'; % 1.2
-uvms.vgoalPosition = [10.5 37.5 -35]';
+uvms.vgoalPosition = [10.5 37.5 -38]';
 %uvms.vgoalPosition = rock_center;
 % uvms.wRgv = rotation(0 ,0 ,0); % R matrix goal w.r.t vehicle projected on world frame in order to have the goal frame parallel to ground
-% uvms.wRgv = rotation(0 , pi/3 ,0); % R matrix to place the goal 45° w.r.t. the ground, use it to test the allignment ground task
+% uvms.wRgv = rotation(0 , pi/3 ,0); % R matrix to place the goal 45ï¿½ w.r.t. the ground, use it to test the allignment ground task
 uvms.wRgv = rotation(0, -0.06 ,0.5); %1.2
 uvms.wTgv = [uvms.wRgv uvms.vgoalPosition; 0 0 0 1]; % new matrix which rappresent the goal from the veichle
 

@@ -60,7 +60,8 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
             uvms.Aa.t = zeros(6);
             uvms.Aa.act = 0;
             uvms.Aa.la = IncreasingBellShapedFunction(0, 1, 0, 1, mission.phase_time);
-            uvms.Aa.lr = IncreasingBellShapedFunction(-0.2, 0.3, 0, 1, norm(uvms.v_rho_r));
+%             uvms.Aa.lr = IncreasingBellShapedFunction(0, 0.5, 0.5, 1, norm(uvms.v_rho_r));
+            uvms.Aa.lr = IncreasingBellShapedFunction(0, 0.8, 0, 0.5, norm(uvms.v_rho_r));
             uvms.Aa.vc = zeros(6);
             uvms.Aa.jl = zeros(7);
 %             if(uvms.v_altitude < 0.2) % if it is under 10 cm
