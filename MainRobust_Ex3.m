@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 20; %25
+end_time = 25; %25
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -119,7 +119,7 @@ for t = 0:deltat:end_time
      [Qp, ydotbar] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp, ydotbar, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame
      [Qp, ydotbar] = iCAT_task(uvms.A.lr,  uvms.Jlr,    Qp, ydotbar, uvms.xdot.lr,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
      [Qp, ydotbar] = iCAT_task(uvms.A.la,  uvms.Jla,    Qp, ydotbar, uvms.xdot.la,  0.0001,   0.01, 10); % Ex3 landing task 
-%      [Qp, ydotbar] = iCAT_task(uvms.A.t,  uvms.Jt,    Qp, ydotbar, uvms.xdot.t,  0.0001,   0.01, 10); % tool frame task (e.e. (tool frame) reaches the goal )
+     [Qp, ydotbar] = iCAT_task(uvms.A.t,  uvms.Jt,    Qp, ydotbar, uvms.xdot.t,  0.0001,   0.01, 10); % tool frame task (e.e. (tool frame) reaches the goal )
      
      %[....]
      [Qp, ydotbar] = iCAT_task( eye(13),   eye(13),    Qp, ydotbar, zeros(13,1),  0.0001,   0.01, 10);    % it stops the movement (this task should be the last one)

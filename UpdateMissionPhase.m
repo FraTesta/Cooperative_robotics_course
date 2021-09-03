@@ -61,27 +61,27 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
             uvms.Aa.act = 0;
             uvms.Aa.la = IncreasingBellShapedFunction(0, 1, 0, 1, mission.phase_time);
 %             uvms.Aa.lr = IncreasingBellShapedFunction(0, 0.5, 0.5, 1, norm(uvms.v_rho_r));
-            uvms.Aa.lr = IncreasingBellShapedFunction(0, 0.8, 0, 0.5, norm(uvms.v_rho_r));
+            uvms.Aa.lr = IncreasingBellShapedFunction(0, 1.57, 0, 0.5, norm(uvms.v_rho_r));
             uvms.Aa.vc = zeros(6);
             uvms.Aa.jl = zeros(7);
-%             if(uvms.v_altitude < 0.2) % if it is under 10 cm
-%                 mission.phase = 3;
-%                 mission.phase_time = 0;
-             end
-%             
-%             
-%         case 3
-%             uvms.Aa.vpos = zeros(3);
-%             uvms.Aa.vatt = zeros(3);
-%             uvms.Aa.ha = eye(1);
-%             %uvms.Aa.act = 0;
-%             uvms.Aa.act = 0;
-%             uvms.Aa.la = 0;
-%             uvms.Aa.lr = 0;
-%             uvms.Aa.t = IncreasingBellShapedFunction(0, 1, 0, 1, mission.phase_time);
+            if(uvms.v_altitude < 0.05) % if it is under 10 cm
+                mission.phase = 3;
+                mission.phase_time = 0;
+            end
+                          
+        case 3
+            uvms.Aa.vpos = zeros(3);
+            uvms.Aa.vatt = zeros(3);
+            uvms.Aa.ha = eye(1);
+            %uvms.Aa.act = 0;
+            uvms.Aa.act = 0;
+            uvms.Aa.la = 0;
+            uvms.Aa.lr = 0;
+            uvms.Aa.t = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
 %             uvms.Aa.vc = eye(6);
 %             uvms.Aa.jl = eye(7);
-%     end
+end
+
 %     switch mission.phase % initialize to 1 
 %          case 1
 %             uvms.Aa.vpos = eye(3); % active 
