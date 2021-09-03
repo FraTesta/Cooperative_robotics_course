@@ -122,49 +122,49 @@ legend('Misalignment norm');
 % set( hplot, 'LineWidth', 2);
 % legend( 'Activation function');
 %% Altitude 
-% figure(9);
-% subplot(2,1,1);
-% hplot1 = plot(plt.t, plt.altitude);
-% set( hplot1, 'Color','green','LineWidth', 2);
-% title('Altitude of the vehicle');
-% xlabel('time [s]');
-% ylabel('altitude [m]');
-% hold on;
-% hplot2 = plot(plt.t, plt.unsafeAlt,'--');
-% set( hplot2,'Color','red', 'LineWidth', 2);
-% 
-% hold on;
-% hplot3 = plot(plt.t, plt.minTre,'--');
-% set( hplot3,'Color','cyan', 'LineWidth', 2);
-% hold on;
-% hplot4 = plot(plt.t, plt.maxTre,'--');
-% set( hplot4,'Color','blue', 'LineWidth', 2);
-% legend( 'Altitude of the vehicle','Unsafe altitude','Min activation threshold','Max activation threshold');
-% 
-% subplot(2,1,2);
-% hplot = plot(plt.t, plt.A.act);
-% set( hplot, 'LineWidth', 2);
-% title('Activation of the safety altitude control');
-% xlabel('time [s]');
-% ylabel('altitude [m]');
-% legend( 'Activation function ');
-%% Landing
-figure(10);
+figure(9);
 subplot(2,1,1);
 hplot1 = plot(plt.t, plt.altitude);
 set( hplot1, 'Color','green','LineWidth', 2);
-title('Altitude in landing task');
+title('Altitude of the vehicle');
 xlabel('time [s]');
 ylabel('altitude [m]');
-legend( 'Altitude of the vehicle');
+hold on;
+hplot2 = plot(plt.t, plt.unsafeAlt,'--');
+set( hplot2,'Color','red', 'LineWidth', 2);
+
+hold on;
+hplot3 = plot(plt.t, plt.minTre,'--');
+set( hplot3,'Color','cyan', 'LineWidth', 2);
+hold on;
+hplot4 = plot(plt.t, plt.maxTre,'--');
+set( hplot4,'Color','blue', 'LineWidth', 2);
+legend( 'Altitude of the vehicle','Unsafe altitude','Min activation threshold','Max activation threshold');
 
 subplot(2,1,2);
-hplot1 = plot(plt.t, plt.Ala);
-set( hplot1,'LineWidth', 2);
-title('Activation of landing task');
+hplot = plot(plt.t, plt.A.act);
+set( hplot, 'LineWidth', 2);
+title('Activation of the safety altitude control');
 xlabel('time [s]');
 ylabel('altitude [m]');
-legend( 'Activation function');
+legend( 'Activation function ');
+%% Landing
+% figure(10);
+% subplot(2,1,1);
+% hplot1 = plot(plt.t, plt.altitude);
+% set( hplot1, 'Color','green','LineWidth', 2);
+% title('Altitude in landing task');
+% xlabel('time [s]');
+% ylabel('altitude [m]');
+% legend( 'Altitude of the vehicle');
+% 
+% subplot(2,1,2);
+% hplot1 = plot(plt.t, plt.Ala);
+% set( hplot1,'LineWidth', 2);
+% title('Activation of landing task');
+% xlabel('time [s]');
+% ylabel('altitude [m]');
+% legend( 'Activation function');
 %% align with rock
 figure(11);
 subplot(2,2,1);
@@ -215,8 +215,20 @@ ylabel('Activation')
 % legend('Aq1','Aq2','Aq3','Aq4','Aq5','Aq6','Aq7');
 % xlabel('time [s]');
 % ylabel('Activation');
+%% Prefered Shape 
+figure(13);
+title('Prefered shape');
+subplot(2,1,2);
+hplot1 = plot(plt.t, plt.q);
+set( hplot1,'LineWidth', 2);
+legend('q1','q2','q3','q4');
+hold on;
+hplot2 = plot(plt.t, plt.prefShape);
+set( hplot2,'--','LineWidth', 2);
+xlabel('time [s]');
+ylabel('Angular Position [rad]');
 %% Ex 6 
-% figure(13);
+% figure(14);
 % title('Activation Function Underactuated constraints');
 % hplot1 = plot(plt.t, plt.A.ua);
 % set( hplot1,'LineWidth', 2);

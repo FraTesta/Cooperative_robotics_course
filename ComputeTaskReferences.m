@@ -30,7 +30,8 @@ uvms.xdot.ha = 0.2 * (0 - norm(uvms.v_rho));
 
 %% Ex 2
 % 1 metere from the seafloor
-uvms.xdot.act = 1 * (10.3 - uvms.v_altitude);
+% uvms.xdot.act = 1 * (1.3 - uvms.v_altitude);
+uvms.xdot.act = 1 * (uvms.v_altitude);
 %uvms.xdot.act = 0.2 * (1 - uvms.sensorDistance); % uvms.sensorDistance gives me "d" (see notes), whose time derivative is v_Vvw
 % so I have to multiply it with v_Kw' in order to get its projection "a" 
 % which is the real distance (see notes and ComputeJacobians). 1 is the
@@ -38,7 +39,7 @@ uvms.xdot.act = 1 * (10.3 - uvms.v_altitude);
 
 %% underactuated ex
 uvms.xdot.ua = uvms.p_dot; % just the w_x feedback as in the notes
-%% Ex3 
+%% Ex3 Landing
 % define the task vector for landing 
 uvms.xdot.la = 0.5 * (0 - norm(uvms.v_altitude));
 %% Landing aligned with rock

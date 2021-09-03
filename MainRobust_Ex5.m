@@ -54,10 +54,12 @@ uvms.q = [-0.0031 0 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
 % [x y z r(rot_x) p(rot_y) y(rot_z)]
 % RPY angles are applied in the following sequence!!!!!!!!!!!!!!!!!!!!!!!!
 % R(rot_x, rot_y, rot_z) = Rz (rot_z) * Ry(rot_y) * Rx(rot_x)
-% uvms.v_init_pose = [10.5 35.5 -36   0 -0.06 1.57]'; % ex 1.1
-uvms.v_init_pose = [12.2025   37.3748 -37   0 -0.06 1.57]';
+% uvms.v_init_pose = [10.5 37.5 -38   0 -0.06 0.5]'; % 1.1
+% uvms.v_init_pose = [10.5 37.5 -38   0 0.5 0.5]'; % 1.1 with pitch
+% uvms.v_init_pose = [8.5 38.5 -36   0 -0.06 0.5]'; % 1.2
+uvms.v_init_pose = [8.5 38.5 -36  0 -0.06 0.5]'; % ex 3.1
 
-uvms.v_init_pose = [48.5 11.5 -33   0 0.01 -1.57]'; % più basso
+
 % uvms.v_init_pose = [8.5 38.5 -38   0 -0.06 0.5]'; % original
 uvms.p = uvms.v_init_pose; % Ex 1 
 
@@ -72,14 +74,13 @@ uvms.eTt = eye(4);
 
 %Vehicle control goal 
 %uvms.vgoalPosition = [10.2025   37.3748  -38.8860+2]'; % goal position w.r.t veichle frame 
-% uvms.vgoalPosition = [10.5 37.5 -38]'; % Ex 1.1
-% uvms.vgoalPosition = [10.5 35.5 -38]';
-uvms.vgoalPosition = [50 -12.5 -33]'; % Ex 1.2
-
+% uvms.vgoalPosition = [12 30 -33]'; % 1.1 inventato
+% uvms.vgoalPosition = [10.5 37.5 -38]'; % 1.2
+uvms.vgoalPosition = [10.5 37.5 -38]';
 %uvms.vgoalPosition = rock_center;
 % uvms.wRgv = rotation(0 ,0 ,0); % R matrix goal w.r.t vehicle projected on world frame in order to have the goal frame parallel to ground
 % uvms.wRgv = rotation(0 , pi/3 ,0); % R matrix to place the goal 45° w.r.t. the ground, use it to test the allignment ground task
-uvms.wRgv = rotation(0, pi/3 ,-pi/2);
+uvms.wRgv = rotation(0, -0.06 ,0.5); %1.2
 uvms.wTgv = [uvms.wRgv uvms.vgoalPosition; 0 0 0 1]; % new matrix which rappresent the goal from the veichle
 
 % Preallocation (data structure to plot what we want)
@@ -110,15 +111,19 @@ for t = 0:deltat:end_time
     % velocities and two parameters for the SVD pseudoinversion
     % add all the other tasks here!!!!!
     % the sequence of iCAT_task calls defines the priority
-     
-     %[Qp, ydotbar] = iCAT_task(uvms.A.ua,  uvms.Jua,    Qp, ydotbar, uvms.xdot.ua,  0.0001,   0.01, 10); % underactuated task, which must be at the top priority (Add disturbance down in this script)
+    
+     [Qp, ydotbar] = iCAT_task(uvms.A.jl_min,  uvms.Jjl,    Qp, ydotbar, uvms.xdot.jl_min,  0.0001,   0.01, 10); 
+     [Qp, ydotbar] = iCAT_task(uvms.A.jl_max,  uvms.Jjl,    Qp, ydotbar, uvms.xdot.jl_max,  0.0001,   0.01, 10); 
+     [Qp, ydotbar] = iCAT_task(uvms.A.mu,  uvms.Jmu,    Qp, ydotbar, uvms.xdot.mu,  0.0001,   0.01, 10); % manipulability
      [Qp, ydotbar] = iCAT_task(uvms.A.act,  uvms.Jact,    Qp, ydotbar, uvms.xdot.act,  0.0001,   0.01, 10); % Ex2: mantain 1m distasnce from the seaflor 
      [Qp, ydotbar] = iCAT_task(uvms.A.ha,  uvms.Jha,    Qp, ydotbar, uvms.xdot.ha,  0.0001,   0.01, 10); % misallignment of Kw (vehicle parallel w.r.t the ground)
-     
-%      [Qp, ydotbar] = iCAT_task(uvms.A.t,  uvms.Jt,    Qp, ydotbar, uvms.xdot.t,  0.0001,   0.01, 10); % tool frame task (e.e. (tool frame) reaches the goal )
+     [Qp, ydotbar] = iCAT_task(uvms.A.lr,  uvms.Jlr,    Qp, ydotbar, uvms.xdot.lr,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
+     [Qp, ydotbar] = iCAT_task(uvms.A.la,  uvms.Jla,    Qp, ydotbar, uvms.xdot.la,  0.0001,   0.01, 10); % Ex3 landing task
+%      [Qp, ydotbar] = iCAT_task(uvms.A.vc,  uvms.Jvc,    Qp, ydotbar, uvms.xdot.vc,  0.0001,   0.01, 10);
+     [Qp, ydotbar] = iCAT_task(uvms.A.t,  uvms.Jt,    Qp, ydotbar, uvms.xdot.t,  0.0001,   0.01, 10); % tool frame task (e.e. (tool frame) reaches the goal )
      [Qp, ydotbar] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp, ydotbar, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
      [Qp, ydotbar] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp, ydotbar, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame
-%      [Qp, ydotbar] = iCAT_task(uvms.A.la,  uvms.Jla,    Qp, ydotbar, uvms.xdot.la,  0.0001,   0.01, 10); % Ex3 landing task 
+%      
      
      %[....]
      [Qp, ydotbar] = iCAT_task( eye(13),   eye(13),    Qp, ydotbar, zeros(13,1),  0.0001,   0.01, 10);    % it stops the movement (this task should be the last one)
@@ -158,15 +163,16 @@ for t = 0:deltat:end_time
         t = mission.phase_time
         %uvms.sensorDistance  % sensor distance
 %         [w_vang,w_vlin] = CartError(uvms.wTgv , uvms.wTv);  % real distance
-%         w_vlin
+%          floor = w_vlin(3) - uvms.v_altitude
 %         goal_distance = norm(w_vlin)
         %nlin = norm(w_vlin);
         %nang = norm(w_vang);
         
-        %phase = mission.phase % which action is executed 
+        phase = mission.phase % which action is executed 
         %goal_plan_distance = uvms.plan_goal_dist % for Ex 3
         %activ = uvms.A.act
 %         alt = uvms.v_altitude
+         uvms.v_rho_r
     end
 
     % enable this to have the simulation approximately evolving like real

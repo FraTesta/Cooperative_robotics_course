@@ -92,7 +92,7 @@ uvms.v_altitude = v_kw' * altitude;
 
 uvms.Jua = [zeros(6,7) eye(6)];
 
-%% Ex3 
+%% Ex3 Landing
 % define the J of the landing task of the second action
 % which is the same of the Ex 2 sice we want to mantain the altitude to a
 % certain value
@@ -109,7 +109,11 @@ uvms.v_dp = uvms.vTw(1:3,1:3)*w_dp;
 
 uvms.v_rho_r = ReducedVersorLemma(uvms.v_iv,uvms.v_dp);
 
-uvms.v_n_r = uvms.v_rho_r/norm(uvms.v_rho_r);
+if norm(uvms.v_rho) == 0
+    uvms.v_n_r = zeros(3,1);    
+    else
+    uvms.v_n_r = uvms.v_rho_r/norm(uvms.v_rho_r);
+end
 
 uvms.Jlr = uvms.v_n_r'*[zeros(3,7) -1/(norm(uvms.v_dp)^2)*skew(uvms.v_dp) -eye(3,3)]; 
 %% Vehicle constrainrs 

@@ -59,6 +59,8 @@ function [plt] = InitDataPlot( maxloops, uvms)
 %% Joint Limits
     plt.A.jl_min = 0;
     plt.A.jl_max = 0;
+%% Prefered Shape
+    plt.prefShape = [];
 %% Ex6 
     plt.A.ua = 0;
 end
