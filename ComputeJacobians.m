@@ -107,15 +107,21 @@ P = [1 0 0; 0 1 0; 0 0 0];
 w_dp = P * w_d;
 uvms.v_dp = uvms.vTw(1:3,1:3)*w_dp;
 
-uvms.v_rho_r = ReducedVersorLemma(uvms.v_iv,uvms.v_dp);
+uvms.v_rho_r = ReducedVersorLemma(uvms.v_iv, uvms.v_dp);
 
+% compute the versor of d 
 if norm(uvms.v_rho) == 0
     uvms.v_n_r = zeros(3,1);    
     else
     uvms.v_n_r = uvms.v_rho_r/norm(uvms.v_rho_r);
 end
 
-uvms.Jlr = uvms.v_n_r'*[zeros(3,7) -1/(norm(uvms.v_dp)^2)*skew(uvms.v_dp) -eye(3,3)]; 
+% versore
+uvms.ver_d = uvms.v_dp / norm(uvms.v_dp);
+uvms.Jlr = uvms.v_n_r'*[zeros(3,7) -1/(norm(uvms.ver_d)^2)*skew(uvms.ver_d) -eye(3,3)]; 
+
+%vettore
+% uvms.Jlr = uvms.v_n_r'*[zeros(3,7) -1/(norm(uvms.v_dp)^2)*skew(uvms.v_dp) -eye(3,3)]; 
 %% Vehicle constrainrs 
 Jvc_lin = [zeros(3,7) eye(3) zeros(3)];
 Jvc_ang = [zeros(3,7) zeros(3) eye(3)];

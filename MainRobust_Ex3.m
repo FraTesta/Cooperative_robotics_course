@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 25; %25
+end_time = 20; %25
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -60,8 +60,9 @@ uvms.q = [-0.0031 0 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
 uvms.v_init_pose = [8.5 38.5 -36  0 -0.06 0.5]'; % ex 3.1
 
 
+
 % uvms.v_init_pose = [8.5 38.5 -38   0 -0.06 0.5]'; % original
-uvms.p = uvms.v_init_pose; % Ex 1 
+uvms.p = uvms.v_init_pose;  
 
 % defines the goal position for the end-effector/tool position task
 %uvms.goalPosition = [12.2025   37.3748  -39.8860]';  %rock
@@ -75,12 +76,12 @@ uvms.eTt = eye(4);
 %Vehicle control goal 
 %uvms.vgoalPosition = [10.2025   37.3748  -38.8860+2]'; % goal position w.r.t veichle frame 
 % uvms.vgoalPosition = [12 30 -33]'; % 1.1 inventato
-% uvms.vgoalPosition = [10.5 37.5 -38]'; % 1.2
-uvms.vgoalPosition = [10.5 37.5 -38]';
+% uvms.vgoalPosition = [10.5 37.5 -38]'; % ex3
+uvms.vgoalPosition = [10.5 37.5 -35]'; % ex3 alto
 %uvms.vgoalPosition = rock_center;
-% uvms.wRgv = rotation(0 ,0 ,0); % R matrix goal w.r.t vehicle projected on world frame in order to have the goal frame parallel to ground
 % uvms.wRgv = rotation(0 , pi/3 ,0); % R matrix to place the goal 45� w.r.t. the ground, use it to test the allignment ground task
-uvms.wRgv = rotation(0, -0.06 ,0.5); %1.2
+% uvms.wRgv = rotation(0, -0.06 ,0.5); % ex3
+uvms.wRgv = rotation(0, -0.06 ,1.57); % big misal
 uvms.wTgv = [uvms.wRgv uvms.vgoalPosition; 0 0 0 1]; % new matrix which rappresent the goal from the veichle
 
 % Preallocation (data structure to plot what we want)
@@ -168,7 +169,7 @@ for t = 0:deltat:end_time
         %goal_plan_distance = uvms.plan_goal_dist % for Ex 3
         %activ = uvms.A.act
 %         alt = uvms.v_altitude
-         uvms.v_rho_r
+         uvms.v_rho_r;
     end
 
     % enable this to have the simulation approximately evolving like real
