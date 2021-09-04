@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 25;
+end_time = 30;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -79,16 +79,16 @@ for t = 0:deltat:end_time
     Qp = eye(13); 
     % add all the other tasks here!
     % the sequence of iCAT_task calls defines the priority
-    if mission.phase == 1
-    [Qp, rhop] = iCAT_task(uvms.A.jl_min,  uvms.Jjl,    Qp, rhop, uvms.xdot.jl_min,  0.0001,   0.01, 10); 
-    [Qp, rhop] = iCAT_task(uvms.A.jl_max,  uvms.Jjl,    Qp, rhop, uvms.xdot.jl_max,  0.0001,   0.01, 10); 
+%     if mission.phase == 1
+%     [Qp, rhop] = iCAT_task(uvms.A.jl_min,  uvms.Jjl,    Qp, rhop, uvms.xdot.jl_min,  0.0001,   0.01, 10); 
+%     [Qp, rhop] = iCAT_task(uvms.A.jl_max,  uvms.Jjl,    Qp, rhop, uvms.xdot.jl_max,  0.0001,   0.01, 10); 
     [Qp, rhop] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp, rhop, uvms.xdot.mu, 0.000001, 0.0001, 10);
 %     [Qp, rhop] = iCAT_task(uvms.A.ua,  uvms.Jua,    Qp, rhop, uvms.xdot.ua,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
-    [Qp, rhop] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp, rhop, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
-    [Qp, rhop] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp, rhop, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame    
-    [Qp, rhop] = iCAT_task(uvms.A.ps,    uvms.Jps,    Qp, rhop, uvms.xdot.ps,  0.0001,   0.01, 10);
+%     [Qp, rhop] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp, rhop, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
+%     [Qp, rhop] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp, rhop, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame    
+        [Qp, rhop] = iCAT_task(uvms.A.ps,    uvms.Jps,    Qp, rhop, uvms.xdot.ps,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
     % get the two variables for integration

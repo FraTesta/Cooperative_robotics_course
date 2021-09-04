@@ -93,7 +93,7 @@ plt.A.all(:,loop) = uvms.A.lr;
 plt.A.jl_min(1:7,loop) = diag(uvms.A.jl_min);
 plt.A.jl_max(1:7,loop) = diag(uvms.A.jl_max);
 %% Prefered Shape
-plt.prefShape = uvms.pref_shape;
+plt.prefShape(:,loop) = uvms.pref_shape;
 %% Ex6 
 plt.A.ua(:,loop) = uvms.A.ua(4,4);
 end
