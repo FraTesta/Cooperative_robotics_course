@@ -113,15 +113,14 @@ for t = 0:deltat:end_time
     % add all the other tasks here!!!!!
     % the sequence of iCAT_task calls defines the priority
      
-     %[Qp, ydotbar] = iCAT_task(uvms.A.ua,  uvms.Jua,    Qp, ydotbar, uvms.xdot.ua,  0.0001,   0.01, 10); % underactuated task, which must be at the top priority (Add disturbance down in this script)
+    
      [Qp, ydotbar] = iCAT_task(uvms.A.act,  uvms.Jact,    Qp, ydotbar, uvms.xdot.act,  0.0001,   0.01, 10); % Ex2: mantain 1m distasnce from the seaflor 
      [Qp, ydotbar] = iCAT_task(uvms.A.ha,  uvms.Jha,    Qp, ydotbar, uvms.xdot.ha,  0.0001,   0.01, 10); % misallignment of Kw (vehicle parallel w.r.t the ground)
      [Qp, ydotbar] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp, ydotbar, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
      [Qp, ydotbar] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp, ydotbar, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame
      [Qp, ydotbar] = iCAT_task(uvms.A.lr,  uvms.Jlr,    Qp, ydotbar, uvms.xdot.lr,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
      [Qp, ydotbar] = iCAT_task(uvms.A.la,  uvms.Jla,    Qp, ydotbar, uvms.xdot.la,  0.0001,   0.01, 10); % Ex3 landing task 
-     [Qp, ydotbar] = iCAT_task(uvms.A.t,  uvms.Jt,    Qp, ydotbar, uvms.xdot.t,  0.0001,   0.01, 10); % tool frame task (e.e. (tool frame) reaches the goal )
-     
+%      [Qp, ydotbar] = iCAT_task(uvms.A.t,  uvms.Jt,    Qp, ydotbar, uvms.xdot.t,  0.0001,   0.01, 10); % tool frame task (e.e. (tool frame) reaches the goal )    
      %[....]
      [Qp, ydotbar] = iCAT_task( eye(13),   eye(13),    Qp, ydotbar, zeros(13,1),  0.0001,   0.01, 10);    % it stops the movement (this task should be the last one)
      
@@ -134,12 +133,6 @@ for t = 0:deltat:end_time
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;
     
-    %% Ex underactuation indtroduce some noise on wx in order to make it
-    % Supose underactuation of roll (w_x), to simulate it we introduce some
-    % disturbances on rool, try to run the code without compensation 
-    % This disturbance affect the dynamics of the e.e. (put tool task under "ha")
-    
-    %uvms.p_dot(4) = 0.5*sin(2*pi*0.5*t);
     %% 
     % beware: p_dot should be projected on <v> !!!!!!!!!!!!!!!!!!!!!!!!!!!
     uvms.p = integrate_vehicle(uvms.p, uvms.p_dot, deltat); 

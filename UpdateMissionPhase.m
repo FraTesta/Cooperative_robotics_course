@@ -11,18 +11,18 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
 %% Mission for robustsim
 %     switch mission.phase % initialize to 1 
 %         case 1 % action A1
-%             uvms.Aa.vpos = eye(3); % active 
-%             uvms.Aa.vatt = eye(3); % active
-%             uvms.Aa.ha = eye(1); % it's a scalar 
-%             uvms.Aa.t = zeros(6); % it's deactivated 
-%             
-%             % criteria on which we change action 
-%             [w_vang,w_vlin] = CartError(uvms.wTgv , uvms.wTv); % distance from the goal 
-%             if(norm(w_vlin) < 0.1) % if it is under 10 cm
-%                 mission.phase = 2; % switch to second action phase 
-%                 mission.phase_time = 0; % reset the time variable for the next activation and dectivation functions 
-%             end 
-%             
+% %             uvms.Aa.vpos = eye(3); % active 
+% %             uvms.Aa.vatt = eye(3); % active
+% %             uvms.Aa.ha = eye(1); % it's a scalar 
+% %             uvms.Aa.t = zeros(6); % it's deactivated 
+% %             
+% %             % criteria on which we change action 
+% %             [w_vang,w_vlin] = CartError(uvms.wTgv , uvms.wTv); % distance from the goal 
+% %             if(norm(w_vlin) < 0.1) % if it is under 10 cm
+% %                 mission.phase = 2; % switch to second action phase 
+% %                 mission.phase_time = 0; % reset the time variable for the next activation and dectivation functions 
+% %             end 
+% %             
 %             %% As3 mission for landing and alignment with the rock
 %             uvms.Aa.vpos = eye(3);
 %             uvms.Aa.vatt = eye(3);
@@ -34,14 +34,12 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
 %             uvms.Aa.vc = zeros(6);
 %             uvms.Aa.jl = zeros(7);
 %             [w_vang,w_vlin] = CartError(uvms.wTgv , uvms.wTv); % distance from the goal
-%             uvms.plan_goal_dist = sqrt(w_vlin(1)^2 + w_vlin(2)^2); % planar dinstance from the goal (only along x and y)
-%             if(uvms.plan_goal_dist < 0.2) % if it is under 10 cm
-%             if(norm(w_vlin(1:2)) < 0.1)
+%             if(norm(w_vlin(1:2)) < 0.2)
 %                 mission.phase = 2;
 %                 mission.phase_time = 0;
 %             end
-%                         
-%             
+% %                         
+% %             
 %         case 2
 
 % % %             uvms.Aa.t = IncreasingBellShapedFunction(0, 2, 0, 1 , mission.phase_time) * eye(6);           
@@ -79,13 +77,17 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
 %             uvms.Aa.vc = eye(6);
 %             uvms.Aa.jl = eye(7);
 % end
+
 %% Mission for Dextrov 
-%% EX5.1 No target position, the tool rules
+
+%% Ex 5
+% EX5.1 No target position, the tool rules
 uvms.Aa.ha = eye(1);
 uvms.Aa.t = eye(6);
 uvms.Aa.ps = eye(4);
 uvms.Aa.jl = eye(7);
 
+%% Ex 6
 %     switch mission.phase % initialize to 1 
 %          case 1
 %             uvms.Aa.vpos = eye(3); % active 
