@@ -39,26 +39,26 @@ function [ ] = PrintPlot( plt, uvms )
 % legend('Amu', 'Aha');
 
 %% Path to the goal 
-% figure(5);
-% plot3(plt.v_goal.x, plt.v_goal.y, plt.v_goal.z); % v path
-% hold on;
-% % plot3(plt.tool_path.x, plt.tool_path.x, plt.tool_path.x,'Color','b'); % tool path
-% % hold on;
-% scatter3(plt.v_initPos(1), plt.v_initPos(2), plt.v_initPos(3),'MarkerFaceColor',[0 1 0]);
-% hold on;
-% scatter3(plt.final_v_pose(1), plt.final_v_pose(2), plt.final_v_pose(3));
-% hold on;
-% scatter3(plt.final_t_pose(1), plt.final_t_pose(2), plt.final_t_pose(3),'MarkerFaceColor',[1 0 1]);
-% hold on;
-% scatter3(plt.v_goalPos(1), plt.v_goalPos(2), plt.v_goalPos(3),'MarkerFaceColor',[1 0 0]);
-% hold on;
-% scatter3(plt.goalPos(1), plt.goalPos(2), plt.goalPos(3),'MarkerFaceColor',[0 0 1]);
-% xlabel('x [m]');
-% ylabel('y [m]');
-% zlabel('z [m]');
-% title("Path towards goals");
-% %set(hplot, 'LineWidth', 1);
-% legend( 'Path of the vehicle frame','Start position','Final Vehicle position','Final tool position','Vehicle Goal position','Tool Goal position');
+figure(5);
+plot3(plt.v_goal.x, plt.v_goal.y, plt.v_goal.z); % v path
+hold on;
+plot3(plt.tool_path.x, plt.tool_path.y, plt.tool_path.z,'Color','g'); % tool path
+hold on;
+scatter3(plt.v_initPos(1), plt.v_initPos(2), plt.v_initPos(3),'MarkerFaceColor',[0 1 0]); % v start
+hold on;
+scatter3(plt.final_v_pose(1), plt.final_v_pose(2), plt.final_v_pose(3)); % v final
+hold on;
+scatter3(plt.final_t_pose(1), plt.final_t_pose(2), plt.final_t_pose(3),'MarkerFaceColor',[0 1 0]); % tool final
+hold on;
+scatter3(plt.v_goalPos(1), plt.v_goalPos(2), plt.v_goalPos(3),'MarkerFaceColor',[1 0 0]); % vehicle goal
+hold on;
+scatter3(plt.goalPos(1), plt.goalPos(2), plt.goalPos(3),'MarkerFaceColor',[0 0 1]); % tool goal
+xlabel('x [m]');
+ylabel('y [m]');
+zlabel('z [m]');
+title("Path towards goals");
+%set(hplot, 'LineWidth', 1);
+legend( 'Path of the vehicle frame','Path of the tool frame','Vehicle Start position',' Vehicle Final position','Final tool position','Vehicle Goal position','Tool Goal position');
 
 %% Horizontal Attitude Misalignment vector  (unit vector)
 % figure(6);
