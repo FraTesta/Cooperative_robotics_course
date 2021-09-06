@@ -29,6 +29,7 @@ function [uvms] = ComputeActivationFunctions(uvms, mission)
 % uvms.A.mu = DecreasingBellShapedFunction(0.02, 0.05, 0, 1, uvms.mu);
 %% With Multipe actions implementation
 
+uvms.A.mu = DecreasingBellShapedFunction(0.02, 0.05, 0, 1, uvms.mu) * uvms.Aa.mu;
 uvms.A.vpos = eye(3) * uvms.Aa.vpos;
 uvms.A.vatt = eye(3) * uvms.Aa.vatt;
 uvms.A.ha = IncreasingBellShapedFunction(0.1, 0.2, 0, 1 , norm(uvms.v_rho)) * uvms.Aa.ha;

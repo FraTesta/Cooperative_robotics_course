@@ -14,6 +14,7 @@ function [plt] = InitDataPlot( maxloops, uvms)
     plt.a = zeros(11, maxloops);
     
     plt.changePhaseTime = 0;
+    plt.changePhaseTime2 = 0; 
     %% Path
     % Path of the vehicle frame
     plt.v_goal.x = 0;

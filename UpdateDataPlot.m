@@ -99,7 +99,8 @@ plt.prefShape(:,loop) = uvms.pref_shape;
 % plt.A.ua(:,loop) = uvms.A.ua(4,4);
 %% Update time
 if mission.phase == 2  
-
     plt.changePhaseTime = uvms.changePhaseTime;
 end 
+if mission.phase == 3
+    plt.changePhaseTime2 = uvms.changePhaseTime2;
 end
