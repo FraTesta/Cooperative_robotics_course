@@ -37,11 +37,11 @@ plt.v_goal.x(:,loop) = uvms.wTgv(1,4);
 plt.v_goal.y(:,loop) = uvms.wTgv(2,4);
 plt.v_goal.z(:,loop) = uvms.wTgv(3,4);
 
-% path of the vehicle frame
+%% path of the vehicle frame
 plt.v_goal.x(:,loop) = uvms.wTv(1,4);
 plt.v_goal.y(:,loop) = uvms.wTv(2,4);
 plt.v_goal.z(:,loop) = uvms.wTv(3,4);
-% path of the tool frame
+%% path of the tool frame
 plt.tool_path.x(:,loop) = uvms.wTt(1,4);
 plt.tool_path.y(:,loop) = uvms.wTt(2,4);
 plt.tool_path.z(:,loop) = uvms.wTt(3,4);
@@ -49,17 +49,18 @@ plt.tool_path.z(:,loop) = uvms.wTt(3,4);
 plt.final_v_pose = uvms.wTv(1:3,4);
 plt.final_t_pose = uvms.wTt(1:3,4);
 
-% %% Horizontal altitude control
-% plt.misAlig.x(:,loop) = uvms.v_rho(1);% misalignment vector 
-% plt.misAlig.y(:,loop) = uvms.v_rho(2);
-% plt.misAlig.z(:,loop) = uvms.v_rho(3);
+%% Horizontal altitude control
+plt.misAlig.x(:,loop) = uvms.v_rho(1);% misalignment vector 
+plt.misAlig.y(:,loop) = uvms.v_rho(2);
+plt.misAlig.z(:,loop) = uvms.v_rho(3);
+plt.v_rho(:,loop) = norm(uvms.v_rho);
 
 
-
-% misalignment vector components 
+%% misalignment vector components 
 % plt.misAlig.x(:,loop) = uvms.v_n(1);
 % plt.misAlig.y(:,loop) = uvms.v_n(2);
 % plt.misAlig.z(:,loop) = uvms.v_n(3);
+
 %% Horizontal Attitude, Misalignment and distance norm w.r.t. the vehicle and tool goals 
 % vehicle errors
 [w_vgang,w_vglin] = CartError(uvms.wTgv , uvms.wTv);
@@ -95,5 +96,5 @@ plt.A.jl_max(1:7,loop) = diag(uvms.A.jl_max);
 %% Prefered Shape
 plt.prefShape(:,loop) = uvms.pref_shape;
 %% Ex6 
-plt.A.ua(:,loop) = uvms.A.ua(4,4);
+% plt.A.ua(:,loop) = uvms.A.ua(4,4);
 end

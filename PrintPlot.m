@@ -19,13 +19,15 @@ function [ ] = PrintPlot( plt, uvms )
 % 
 % figure(2);
 % subplot(3,1,1);
-% hplot = plot(plt.t, plt.p);
-% set(hplot, 'LineWidth', 1);
-% legend('x','y','z','roll','pitch','yaw');
-% subplot(2,1,2);
-% hplot = plot(plt.t, plt.p_dot);
-% set(hplot, 'LineWidth', 1);
-% legend('xdot', 'ydot','zdot','omega_x','omega_y','omega_z');
+figure(2)
+subplot(2,1,1)
+hplot = plot(plt.t, plt.p);
+set(hplot, 'LineWidth', 1);
+legend('x','y','z','roll','pitch','yaw');
+subplot(2,1,2);
+hplot = plot(plt.t, plt.p_dot);
+set(hplot, 'LineWidth', 1);
+legend('xdot', 'ydot','zdot','\omega_x','\omega_y','\omega_z');
 % 
 % 
 % figure(3);
@@ -41,86 +43,99 @@ function [ ] = PrintPlot( plt, uvms )
 %% Path to the goal 
 figure(5);
 plot3(plt.v_goal.x, plt.v_goal.y, plt.v_goal.z); % v path
-hold on;
-plot3(plt.tool_path.x, plt.tool_path.y, plt.tool_path.z,'Color','g'); % tool path
+% hold on;
+% plot3(plt.tool_path.x, plt.tool_path.y, plt.tool_path.z,'Color','g'); % tool path
 hold on;
 scatter3(plt.v_initPos(1), plt.v_initPos(2), plt.v_initPos(3),'MarkerFaceColor',[0 1 0]); % v start
 hold on;
 scatter3(plt.final_v_pose(1), plt.final_v_pose(2), plt.final_v_pose(3)); % v final
-hold on;
-scatter3(plt.final_t_pose(1), plt.final_t_pose(2), plt.final_t_pose(3),'MarkerFaceColor',[0 1 0]); % tool final
+% hold on;
+% scatter3(plt.final_t_pose(1), plt.final_t_pose(2), plt.final_t_pose(3),'MarkerFaceColor',[0 1 0]); % tool final
 hold on;
 scatter3(plt.v_goalPos(1), plt.v_goalPos(2), plt.v_goalPos(3),'MarkerFaceColor',[1 0 0]); % vehicle goal
-hold on;
-scatter3(plt.goalPos(1), plt.goalPos(2), plt.goalPos(3),'MarkerFaceColor',[0 0 1]); % tool goal
+% hold on;
+% scatter3(plt.goalPos(1), plt.goalPos(2), plt.goalPos(3),'MarkerFaceColor',[0 0 1]); % tool goal
 xlabel('x [m]');
 ylabel('y [m]');
 zlabel('z [m]');
 title("Path towards goals");
 %set(hplot, 'LineWidth', 1);
-legend( 'Path of the vehicle frame','Path of the tool frame','Vehicle Start position',' Vehicle Final position','Final tool position','Vehicle Goal position','Tool Goal position');
+% legend( 'Path of the vehicle frame','Path of the tool frame','Vehicle Start position',' Vehicle Final position','Final tool position','Vehicle Goal position','Tool Goal position');
+%% Without Tool
+legend( 'Path of the vehicle frame','Vehicle Start position',' Vehicle Final position','Vehicle Goal position');
 
 %% Horizontal Attitude Misalignment vector  (unit vector)
-% figure(6);
+figure(6);
 % title("Misalignment of the vehicle w.r.t the seafloor")
-% subplot(3,1,1);
-% hplot = plot(plt.t, plt.misAlig.x);
-% set(hplot,'Color','red', 'LineWidth', 2);
-% legend( 'Misalignment along x');
-% xlabel('time [s]');
-% ylabel('[rad]');
-% subplot(3,1,2);
-% hplot = plot(plt.t, plt.misAlig.y);
-% set(hplot, 'LineWidth', 2);
-% legend( 'Misalignment along y');
-% xlabel('time [s]');
-% ylabel('[rad]');
-% subplot(3,1,3);
-% hplot = plot(plt.t, plt.misAlig.z);
-% set(hplot,'Color','green', 'LineWidth', 2);
+subplot(3,1,1);
+hplot = plot(plt.t, plt.misAlig.x);
+set(hplot,'Color','red', 'LineWidth', 2);
+legend( 'Misalignment along x');
+xlabel('time [s]');
+ylabel('[rad]');
+subplot(3,1,2);
+hplot = plot(plt.t, plt.misAlig.y);
+set(hplot, 'LineWidth', 2);
+legend( 'Misalignment along y');
+xlabel('time [s]');
+ylabel('[rad]');
+subplot(3,1,3);
+hplot = plot(plt.t, plt.misAlig.z);
+set(hplot,'Color','green', 'LineWidth', 2);
 % legend( 'Misalignment along z');
-% xlabel('time [s]');
-% ylabel('[rad]');
+xlabel('time [s]');
+ylabel('[rad]');
+
+%% rho norm
+figure
+hplot = plot(plt.t, plt.v_rho);
+set(hplot,'LineWidth', 2)
+legend( 'Misalignment');
+xlabel('time [s]');
+ylabel('[rad]');
 
 %% Dinstance and misalignment norm w.r.t. the tool and vehicle goals 
 
 figure(7)
-subplot(2,2,1);
+%subplot(2,2,1);
+subplot(1,2,1); %Without tool
 hplot = plot(plt.t,  plt.v_misNorm);
-title('Misalignment norm w.r.t. the vehicle goal');
+%title('Misalignment norm w.r.t. the vehicle goal');
 xlabel('t[s]');
 ylabel('[rad]');
 set(hplot, 'LineWidth', 2);
 legend('Misalignment norm');
-subplot(2,2,2);
+% subplot(2,2,2);
+subplot(1,2,2); % Without Tool
 hplot = plot(plt.t, plt.v_distNorm);
-title('Distance norm w.r.t. the vehicle goal');
+% title('Distance norm w.r.t. the vehicle goal');
 xlabel('t[s]');
 ylabel('[m]');
 set(hplot, 'LineWidth', 2);
 legend('Distance norm');
-subplot(2,2,3);
-hplot = plot(plt.t, plt.g_misNorm);
-title('Misalignment norm w.r.t. the tool goal');
-xlabel('t[s]');
-ylabel('[rad]');
-set(hplot,'Color','green', 'LineWidth', 2);
-legend('Misalignment norm');
-subplot(2,2,4);
-hplot = plot(plt.t, plt.g_distNorm);
-title('Distance norm w.r.t. the tool goal');
-xlabel('t[s]');
-ylabel('[m]');
-set(hplot,'Color','green', 'LineWidth', 2);
-legend('Misalignment norm');
+% subplot(2,2,3);
+% hplot = plot(plt.t, plt.g_misNorm);
+% title('Misalignment norm w.r.t. the tool goal');
+% xlabel('t[s]');
+% ylabel('[rad]');
+% set(hplot,'Color','green', 'LineWidth', 2);
+% legend('Misalignment norm');
+% subplot(2,2,4);
+% hplot = plot(plt.t, plt.g_distNorm);
+% title('Distance norm w.r.t. the tool goal');
+% xlabel('t[s]');
+% ylabel('[m]');
+% set(hplot,'Color','green', 'LineWidth', 2);
+% legend('Misalignment norm');
 %% Horizontal altidtude Activation function
-% figure(8);
-% hplot = plot(plt.t, plt.misActFunc);
-% title('Activation Function of Horizontal altitude');
-% xlabel('time [s]');
-% ylabel('Activation value');
-% set( hplot, 'LineWidth', 2);
-% legend( 'Activation function');
+figure(8);
+hplot = plot(plt.t, plt.misActFunc);
+title('Activation Function of Horizontal altitude');
+xlabel('time [s]');
+ylabel('Activation value');
+set( hplot, 'LineWidth', 2);
+ylim([0 1]);
+legend( 'Activation function');
 %% Altitude 
 % figure(9);
 % subplot(2,1,1);
@@ -216,47 +231,47 @@ legend('Misalignment norm');
 % xlabel('time [s]');
 % ylabel('Activation');
 %% Prefered Shape 
-figure(13);
-subplot(2,2,1);
-hplot1 = plot(plt.t, plt.q(1,:));
-set( hplot1,'LineWidth', 2);
-hold on;
-hplot2 = plot(plt.t, plt.prefShape(1,:),'r--');
-set( hplot2,'LineWidth', 2);
-legend('q_1','preferred shape q_1');
-xlabel('time [s]');
-ylabel('Angular Position [rad]')
-
-subplot(2,2,2);
-hplot1 = plot(plt.t, plt.q(2,:));
-set( hplot1,'LineWidth', 2);
-hold on;
-hplot2 = plot(plt.t, plt.prefShape(2,:),'r--');
-set( hplot2,'LineWidth', 2);
-legend('q_2','preferred shape q_2');
-xlabel('time [s]');
-ylabel('Angular Position [rad]')
-
-subplot(2,2,3);
-hplot1 = plot(plt.t, plt.q(3,:));
-set( hplot1,'LineWidth', 2);
-hold on;
-hplot2 = plot(plt.t, plt.prefShape(3,:),'r--');
-set( hplot2,'LineWidth', 2);
-legend('q_3','preferred shape q_3');
-xlabel('time [s]');
-ylabel('Angular Position [rad]')
-
-subplot(2,2,4);
-hplot1 = plot(plt.t, plt.q(4,:));
-set( hplot1,'LineWidth', 2);
-
-hold on;
-hplot2 = plot(plt.t, plt.prefShape(4,:),'r--');
-set( hplot2,'LineWidth', 2);
-legend('q_4','preferred shape q_4');
-xlabel('time [s]');
-ylabel('Angular Position [rad]')
+% figure(13);
+% subplot(2,2,1);
+% hplot1 = plot(plt.t, plt.q(1,:));
+% set( hplot1,'LineWidth', 2);
+% hold on;
+% hplot2 = plot(plt.t, plt.prefShape(1,:),'r--');
+% set( hplot2,'LineWidth', 2);
+% legend('q_1','preferred shape q_1');
+% xlabel('time [s]');
+% ylabel('Angular Position [rad]')
+% 
+% subplot(2,2,2);
+% hplot1 = plot(plt.t, plt.q(2,:));
+% set( hplot1,'LineWidth', 2);
+% hold on;
+% hplot2 = plot(plt.t, plt.prefShape(2,:),'r--');
+% set( hplot2,'LineWidth', 2);
+% legend('q_2','preferred shape q_2');
+% xlabel('time [s]');
+% ylabel('Angular Position [rad]')
+% 
+% subplot(2,2,3);
+% hplot1 = plot(plt.t, plt.q(3,:));
+% set( hplot1,'LineWidth', 2);
+% hold on;
+% hplot2 = plot(plt.t, plt.prefShape(3,:),'r--');
+% set( hplot2,'LineWidth', 2);
+% legend('q_3','preferred shape q_3');
+% xlabel('time [s]');
+% ylabel('Angular Position [rad]')
+% 
+% subplot(2,2,4);
+% hplot1 = plot(plt.t, plt.q(4,:));
+% set( hplot1,'LineWidth', 2);
+% 
+% hold on;
+% hplot2 = plot(plt.t, plt.prefShape(4,:),'r--');
+% set( hplot2,'LineWidth', 2);
+% legend('q_4','preferred shape q_4');
+% xlabel('time [s]');
+% ylabel('Angular Position [rad]')
 
 %% Ex 6 
 % figure(15);
