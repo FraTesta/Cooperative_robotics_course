@@ -90,82 +90,51 @@ ylabel('[rad]');
 subplot(3,1,2);
 hplot = plot(plt.t, plt.misAlig.y);
 set(hplot, 'LineWidth', 2);
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
 legend( 'Misalignment along y');
 xlabel('time [s]');
 ylabel('[rad]');
 subplot(3,1,3);
 hplot = plot(plt.t, plt.misAlig.z);
 set(hplot,'Color','green', 'LineWidth', 2);
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
 legend( 'Misalignment along z');
 xlabel('time [s]');
 ylabel('[rad]');
 
 %% Dinstance and misalignment norm w.r.t. the tool and vehicle goals 
 
-figure(7)
-subplot(2,2,1);
-hplot = plot(plt.t,  plt.v_misNorm);
-title('Misalignment norm w.r.t. the vehicle goal');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-xlabel('t[s]');
-ylabel('[rad]');
-set(hplot, 'LineWidth', 2);
-legend('Misalignment norm');
-
-subplot(2,2,2);
-hplot = plot(plt.t, plt.v_distNorm);
-title('Distance norm w.r.t. the vehicle goal');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-xlabel('t[s]');
-ylabel('[m]');
-set(hplot, 'LineWidth', 2);
-legend('Distance norm');
-
-subplot(2,2,3);
-hplot = plot(plt.t, plt.g_misNorm);
-title('Misalignment norm w.r.t. the tool goal');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-xlabel('t[s]');
-ylabel('[rad]');
-set(hplot,'Color','green', 'LineWidth', 2);
-legend('Misalignment norm');
-
-subplot(2,2,4);
-hplot = plot(plt.t, plt.g_distNorm);
-title('Distance norm w.r.t. the tool goal');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-xlabel('t[s]');
-ylabel('[m]');
-set(hplot,'Color','green', 'LineWidth', 2);
-legend('Misalignment norm');
+% figure(7)
+% subplot(2,2,1);
+% hplot = plot(plt.t,  plt.v_misNorm);
+% title('Misalignment norm w.r.t. the vehicle goal');
+% xlabel('t[s]');
+% ylabel('[rad]');
+% set(hplot, 'LineWidth', 2);
+% legend('Misalignment norm');
+% subplot(2,2,2);
+% hplot = plot(plt.t, plt.v_distNorm);
+% title('Distance norm w.r.t. the vehicle goal');
+% xlabel('t[s]');
+% ylabel('[m]');
+% set(hplot, 'LineWidth', 2);
+% legend('Distance norm');
+% subplot(2,2,3);
+% hplot = plot(plt.t, plt.g_misNorm);
+% title('Misalignment norm w.r.t. the tool goal');
+% xlabel('t[s]');
+% ylabel('[rad]');
+% set(hplot,'Color','green', 'LineWidth', 2);
+% legend('Misalignment norm');
+% subplot(2,2,4);
+% hplot = plot(plt.t, plt.g_distNorm);
+% title('Distance norm w.r.t. the tool goal');
+% xlabel('t[s]');
+% ylabel('[m]');
+% set(hplot,'Color','green', 'LineWidth', 2);
+% legend('Misalignment norm');
 %% Horizontal altidtude Activation function
 figure(8);
 hplot = plot(plt.t, plt.misActFunc);
 title('Activation Function of Horizontal altitude');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
 xlabel('time [s]');
 ylabel('Activation value');
 set( hplot, 'LineWidth', 2);
@@ -175,17 +144,12 @@ figure(9);
 subplot(2,1,1);
 hplot1 = plot(plt.t, plt.altitude);
 set( hplot1, 'Color','green','LineWidth', 2);
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
 title('Altitude of the vehicle');
 xlabel('time [s]');
 ylabel('altitude [m]');
 hold on;
 hplot2 = plot(plt.t, plt.unsafeAlt,'--');
 set( hplot2,'Color','red', 'LineWidth', 2);
-
 
 hold on;
 hplot3 = plot(plt.t, plt.minTre,'--');
@@ -199,10 +163,6 @@ subplot(2,1,2);
 hplot = plot(plt.t, plt.A.act);
 set( hplot, 'LineWidth', 2);
 title('Activation of the safety altitude control');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
 xlabel('time [s]');
 ylabel('altitude [m]');
 legend( 'Activation function ');
@@ -216,19 +176,15 @@ ylabel('altitude [m]');
 legend( 'Altitude of the vehicle');
 xlabel('time [s]');
 ylabel('altitude [m]');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
+hold on;
+xline(plt.changePhaseTime,'Navigation Accomplished');
 
 
 subplot(2,1,2);
 hplot1 = plot(plt.t, plt.Ala);
 set( hplot1,'LineWidth', 2);
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
+hold on;
+xline(plt.changePhaseTime,'Color','r');
 xlabel('time [s]');
 ylabel('Activation value');
 legend( 'Activation function');

@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 15; %25
+end_time = 10; %25
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -108,11 +108,10 @@ for t = 0:deltat:end_time
     % add all the other tasks here!!!!!
     % the sequence of iCAT_task calls defines the priority
      
-     %[Qp, ydotbar] = iCAT_task(uvms.A.ua,  uvms.Jua,    Qp, ydotbar, uvms.xdot.ua,  0.0001,   0.01, 10); % underactuated task, which must be at the top priority (Add disturbance down in this script)
+    
      [Qp, ydotbar] = iCAT_task(uvms.A.act,  uvms.Jact,    Qp, ydotbar, uvms.xdot.act,  0.0001,   0.01, 10); % Ex2: mantain 1m distasnce from the seaflor 
      [Qp, ydotbar] = iCAT_task(uvms.A.ha,  uvms.Jha,    Qp, ydotbar, uvms.xdot.ha,  0.0001,   0.01, 10); % misallignment of Kw (vehicle parallel w.r.t the ground)
      [Qp, ydotbar] = iCAT_task(uvms.A.la,  uvms.Jla,    Qp, ydotbar, uvms.xdot.la,  0.0001,   0.01, 10); % Ex3 landing task 
-%      [Qp, ydotbar] = iCAT_task(uvms.A.t,  uvms.Jt,    Qp, ydotbar, uvms.xdot.t,  0.0001,   0.01, 10); % tool frame task (e.e. (tool frame) reaches the goal )
      [Qp, ydotbar] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp, ydotbar, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
      [Qp, ydotbar] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp, ydotbar, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame
      
@@ -147,7 +146,7 @@ for t = 0:deltat:end_time
     SendUdpPackets(uvms,wuRw,vRvu,uArm,uVehicle);
         
     % collect data for plots
-    plt = UpdateDataPlot(plt,uvms,t,loop);
+    plt = UpdateDataPlot(plt,uvms,t,loop,mission);
     loop = loop + 1;
    
     % add debug prints here
@@ -160,7 +159,7 @@ for t = 0:deltat:end_time
         %nlin = norm(w_vlin);
         %nang = norm(w_vang);
         
-        %phase = mission.phase % which action is executed 
+        phase = mission.phase  % which action is executed 
         %goal_plan_distance = uvms.plan_goal_dist % for Ex 3
         %activ = uvms.A.act
 %         alt = uvms.v_altitude

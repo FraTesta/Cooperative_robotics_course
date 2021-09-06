@@ -95,8 +95,8 @@ uvms.Aa.act = eye(1);
 uvms.Aa.ua = eye(6);
 uvms.Aa.la = eye(1);
 uvms.Aa.lr = eye(1);
-uvms.Aa.vc = eye(6);
-uvms.Aa.jl = eye(7);
+uvms.Aa.vc = zeros(6);
+uvms.Aa.jl = zeros(7);
 uvms.Aa.ps = eye(4);
 
 uvms.v_init_pose = zeros(3:1);
@@ -112,6 +112,7 @@ uvms.pref_shape = zeros(4,1);
 
  uvms.Aact.minTre = 0;
  uvms.Aact.maxTre = 0;
-
+ 
+ uvms.changePhaseTime = 0;
 end
 

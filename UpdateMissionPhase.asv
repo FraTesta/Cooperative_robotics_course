@@ -17,14 +17,12 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
             uvms.Aa.ha = eye(1); % it's a scalar 
             uvms.Aa.t = zeros(6); % it's deactivated 
             uvms.Aa.act = eye(1);
-            uvms.Aa.la = zeros(1);
             %criteria on which we change action 
             [w_vang,w_vlin] = CartError(uvms.wTgv , uvms.wTv); % distance from the goal 
             if(norm(w_vlin(1:2)) < 0.15) % if it is under 10 cm
                 mission.phase = 2; % switch to second action phase 
-                uvms.changePhaseTime = mission.phase_time;
                 mission.phase_time = 0; % reset the time variable for the next activation and dectivation functions 
-
+                uvms.
             end 
             
            case 2

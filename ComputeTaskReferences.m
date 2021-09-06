@@ -41,7 +41,7 @@ uvms.xdot.act = 1 * (uvms.v_altitude);
 uvms.xdot.ua = uvms.p_dot; % just the w_x feedback as in the notes
 %% Ex3 Landing
 % define the task vector for landing 
-uvms.xdot.la = 0.5 * (0 - norm(uvms.v_altitude));
+uvms.xdot.la = Saturate(0.5 * (0 - norm(uvms.v_altitude)),1);
 %% Landing aligned with rock
 % theta() = ReducedVersorLemma(uvms.v_dp,uvms.v_iv);
 uvms.xdot.lr = 1 * (0 - norm(uvms.v_rho_r)); % 0,02 0,8 1.5

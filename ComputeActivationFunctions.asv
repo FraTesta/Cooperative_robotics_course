@@ -33,7 +33,7 @@ uvms.A.vpos = eye(3) * uvms.Aa.vpos;
 uvms.A.vatt = eye(3) * uvms.Aa.vatt;
 uvms.A.ha = IncreasingBellShapedFunction(0.1, 0.2, 0, 1 , norm(uvms.v_rho)) * uvms.Aa.ha;
 uvms.A.act = DecreasingBellShapedFunction(1, 1.5, 0, 1 , uvms.v_altitude) * uvms.Aa.act;
-uvms.A.la = IncreasingBellShapedFunction(0, 1, 0, 1 , mission.phase_time) * uvms.Aa.la;
+uvms.A.la = IncreasingBellShapedFunction(0.1, 0.2, 0, 1 , mission.phase_time) * uvms.Aa.la;
 % uvms.A.lr = DecreasingBellShapedFunction(0, 10, 0, 1 , uvms.v_altitude) * uvms.Aa.lr;
 % %solo altitudine
 % 
