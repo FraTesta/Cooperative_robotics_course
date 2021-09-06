@@ -5,7 +5,7 @@ function [ ] = PrintPlot( plt, uvms )
 
 % ACTIONS = 0 % no actions
 % ACTIONS = 1 % 2 actions
-ACTIONS = 1
+ACTIONS = 1;
 
 % figure(1);
 % subplot(2,1,1);
@@ -50,33 +50,43 @@ legend('xdot', 'ydot','zdot','omega_x','omega_y','omega_z');
 % set(hplot, 'LineWidth', 2);
 % legend('Amu', 'Aha');
 
-%% Path to the goal 
+%% Path to the goal
+% TOOL = 1 con tool , TOOL = 0 no tool
+TOOL = 0;
 figure(5);
 plot3(plt.v_goal.x, plt.v_goal.y, plt.v_goal.z); % v path
-% hold on;
-% plot3(plt.tool_path.x, plt.tool_path.y, plt.tool_path.z,'Color','g'); % tool path
+if TOOL == 1
+    hold on;
+    plot3(plt.tool_path.x, plt.tool_path.y, plt.tool_path.z,'Color','g'); % tool path
+end
 hold on;
 scatter3(plt.v_initPos(1), plt.v_initPos(2), plt.v_initPos(3),'MarkerFaceColor',[0 1 0]); % v start
 hold on;
 scatter3(plt.final_v_pose(1), plt.final_v_pose(2), plt.final_v_pose(3)); % v final
-% hold on;
-% scatter3(plt.final_t_pose(1), plt.final_t_pose(2), plt.final_t_pose(3),'MarkerFaceColor',[0 1 0]); % tool final
+if TOOL == 1
+    hold on;
+    scatter3(plt.final_t_pose(1), plt.final_t_pose(2), plt.final_t_pose(3),'MarkerFaceColor',[0 1 0]); % tool final
+end
 hold on;
 scatter3(plt.v_goalPos(1), plt.v_goalPos(2), plt.v_goalPos(3),'MarkerFaceColor',[1 0 0]); % vehicle goal
-% hold on;
-% scatter3(plt.goalPos(1), plt.goalPos(2), plt.goalPos(3),'MarkerFaceColor',[0 0 1]); % tool goal
+if TOOL == 1
+    hold on;
+    scatter3(plt.goalPos(1), plt.goalPos(2), plt.goalPos(3),'MarkerFaceColor',[0 0 1]); % tool goal
+end
 xlabel('x [m]');
 ylabel('y [m]');
 zlabel('z [m]');
 title("Path towards goals");
 %set(hplot, 'LineWidth', 1);
-% legend( 'Path of the vehicle frame','Path of the tool frame','Vehicle Start position',' Vehicle Final position','Final tool position','Vehicle Goal position','Tool Goal position');
-%% Without Tool
-legend( 'Path of the vehicle frame','Vehicle Start position',' Vehicle Final position','Vehicle Goal position');
+if TOOL == 1
+    legend( 'Path of the vehicle frame','Path of the tool frame','Vehicle Start position',' Vehicle Final position','Final tool position','Vehicle Goal position','Tool Goal position');
+else
+    legend( 'Path of the vehicle frame','Vehicle Start position',' Vehicle Final position','Vehicle Goal position');
+end
+
 
 %% Horizontal Attitude Misalignment vector  (unit vector)
 figure(6);
-title("Misalignment of the vehicle w.r.t the seafloor")
 subplot(3,1,1);
 hplot = plot(plt.t, plt.misAlig.x);
 set(hplot,'Color','red', 'LineWidth', 2);
@@ -211,11 +221,10 @@ figure(10);
 subplot(2,1,1);
 hplot1 = plot(plt.t, plt.altitude);
 set( hplot1, 'Color','green','LineWidth', 2);
-xlabel('time [s]');
-ylabel('altitude [m]');
 legend( 'Altitude of the vehicle');
 xlabel('time [s]');
 ylabel('altitude [m]');
+
 if ACTIONS == 1
     hold on;
     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});

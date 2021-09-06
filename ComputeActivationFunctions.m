@@ -7,8 +7,8 @@ function [uvms] = ComputeActivationFunctions(uvms, mission)
 % arm tool position control
 %uvms.A.t = eye(6);   % da sostituire in altri es
 
- uvms.Aact.minTre = 1;
- uvms.Aact.maxTre = 1.3;
+ uvms.Aact.minTre = 3;
+ uvms.Aact.maxTre = 3.3;
 %% Without Actions 
 % uvms.A.vpos = eye(3); 
 % uvms.A.vatt = eye(3);
@@ -32,7 +32,7 @@ function [uvms] = ComputeActivationFunctions(uvms, mission)
 uvms.A.vpos = eye(3) * uvms.Aa.vpos;
 uvms.A.vatt = eye(3) * uvms.Aa.vatt;
 uvms.A.ha = IncreasingBellShapedFunction(0.1, 0.2, 0, 1 , norm(uvms.v_rho)) * uvms.Aa.ha;
-uvms.A.act = DecreasingBellShapedFunction(1, 1.5, 0, 1 , uvms.v_altitude) * uvms.Aa.act;
+uvms.A.act = DecreasingBellShapedFunction( uvms.Aact.minTre, uvms.Aact.maxTre, 0, 1 , uvms.v_altitude) * uvms.Aa.act;
 uvms.A.la = IncreasingBellShapedFunction(0, 1, 0, 1 , mission.phase_time) * uvms.Aa.la;
 % uvms.A.lr = DecreasingBellShapedFunction(0, 10, 0, 1 , uvms.v_altitude) * uvms.Aa.lr;
 % %solo altitudine
