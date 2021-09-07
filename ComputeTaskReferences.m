@@ -9,10 +9,10 @@ function [uvms] = ComputeTaskReferences(uvms, mission)
 % the returned values are projected on the common frame (in this case <v> )
 [ang, lin] = CartError(uvms.vTg , uvms.vTt); 
 
-uvms.xdot.t = 0.2 * [ang; lin]; % generation of the reference velocities where 0.2 is the Lambda (see notes)
+uvms.xdot.t = 0.4 * [ang; lin]; % generation of the reference velocities where 0.2 is the Lambda (see notes)
 % limit the requested velocities...
-uvms.xdot.t(1:3) = Saturate(uvms.xdot.t(1:3), 0.2);
-uvms.xdot.t(4:6) = Saturate(uvms.xdot.t(4:6), 0.2);
+uvms.xdot.t(1:3) = Saturate(uvms.xdot.t(1:3), 0.6);
+uvms.xdot.t(4:6) = Saturate(uvms.xdot.t(4:6), 0.6);
 
 %% Manipulability
 uvms.xdot.mu = 0.1 *(0.12 - uvms.mu);
@@ -22,8 +22,8 @@ uvms.xdot.mu = 0.1 *(0.12 - uvms.mu);
 [w_vang,w_vlin] = CartError(uvms.wTgv , uvms.wTv); 
 
 % Saturate the mas velocities to 0.5 
-uvms.xdot.vpos(1:3,:) = Saturate(0.7* w_vlin, 1); 
-uvms.xdot.vatt(1:3,:) = Saturate(0.7* w_vang, 1);
+uvms.xdot.vpos(1:3,:) = Saturate(0.6* w_vlin, 1); 
+uvms.xdot.vatt(1:3,:) = Saturate(0.6* w_vang, 1);
 
 %% Ex allignment w.r.t the ground
 uvms.xdot.ha = 0.2 * (0 - norm(uvms.v_rho));
@@ -41,15 +41,14 @@ uvms.xdot.act = 0.8 * (uvms.v_altitude);
 uvms.xdot.ua = uvms.p_dot; % just the w_x feedback as in the notes
 %% Ex3 Landing
 % define the task vector for landing 
-uvms.xdot.la = Saturate(0.7 * (0 - norm(uvms.v_altitude)),1);
+uvms.xdot.la = Saturate(0.5 * (0 - norm(uvms.v_altitude)),1);
 %% Landing aligned with rock
 % theta() = ReducedVersorLemma(uvms.v_dp,uvms.v_iv);
-uvms.xdot.lr = 1 * (0 - norm(uvms.v_rho_r)); % 0,02 0,8 1.5
+uvms.xdot.lr = 1.5 * (0 - norm(uvms.v_rho_r)); % 0,02 0,8 1.5
 % uvms.xdot.lr = Saturate(0.2, uvms.v_rho_r);
 %% Vehicle constraints
-% uvms.xdot.vc_lin = 0.5 * (zeros(3,1) - uvms.p_dot(1:3));
-% uvms.xdot.vc_ang = 0.5 * (zeros(3,1) - uvms.p_dot(4:6));
-uvms.xdot.vc = 0.5 * (zeros(6,1) - uvms.p_dot);
+% uvms.xdot.vc = 0.5 * (zeros(6,1) - uvms.p_dot);
+uvms.xdot.vc = zeros(6,1);
 %% Joint limits
 uvms.xdot.jl_min = 0.5 * (uvms.jlmin - uvms.q);
 uvms.xdot.jl_max = 0.5 * (uvms.jlmax - uvms.q);

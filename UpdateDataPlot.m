@@ -31,6 +31,7 @@ plt.a(9, loop) = uvms.A.ha(1,1);
 plt.toolx(:,loop) = uvms.wTt(1,4);
 plt.tooly(:,loop) = uvms.wTt(2,4);
 
+plt.A.t(1:6, loop)= diag(uvms.A.t);
 %% Path towards goal 
 uvms.wTgv = [uvms.wRgv uvms.vgoalPosition; 0 0 0 1];
 plt.v_goal.x(:,loop) = uvms.wTgv(1,4);
@@ -90,6 +91,8 @@ plt.misRock(:,loop) = norm(uvms.v_rho_r);
 plt.A.mis(:,loop) = uvms.Aa.lr;
 plt.A.alt(:,loop) = DecreasingBellShapedFunction(0.8, 1.5, 0, 1 , uvms.v_altitude);
 plt.A.all(:,loop) = uvms.A.lr;
+%% V Null vell 
+plt.A.vc(1:6, loop) = diag(uvms.A.vc); 
 %% Joint limits 
 plt.A.jl_min(1:7,loop) = diag(uvms.A.jl_min);
 plt.A.jl_max(1:7,loop) = diag(uvms.A.jl_max);

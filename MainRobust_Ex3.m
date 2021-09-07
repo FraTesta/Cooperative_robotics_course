@@ -145,7 +145,7 @@ for t = 0:deltat:end_time
     SendUdpPackets(uvms,wuRw,vRvu,uArm,uVehicle);
         
     % collect data for plots
-    plt = UpdateDataPlot(plt,uvms,t,loop);
+    plt = UpdateDataPlot(plt,uvms,t,loop, mission);
     loop = loop + 1;
    
     % add debug prints here

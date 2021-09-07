@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 15; %25
+end_time = 20; %25
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -138,9 +138,8 @@ for t = 0:deltat:end_time
     
     %% Q3 segnale che simula la corrente
 
-    if mission.phase == 2 && uvms.EX == 41
-        current = 0.2*sin(2*pi*0.5*t) + 0.25;
-        uvms.p_dot(2) = uvms.p_dot(2) + current; 
+    if mission.phase == 3
+    uvms.p_dot(2) = uvms.p_dot(2) 0.3*sin(2*pi*0.5*t) + 0.3;
     end
     %% 
     % beware: p_dot should be projected on <v> !!!!!!!!!!!!!!!!!!!!!!!!!!!

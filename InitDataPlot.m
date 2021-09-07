@@ -15,6 +15,8 @@ function [plt] = InitDataPlot( maxloops, uvms)
     
     plt.changePhaseTime = 0;
     plt.changePhaseTime2 = 0; 
+    
+    plt.A.t =  zeros(6,6);
     %% Path
     % Path of the vehicle frame
     plt.v_goal.x = 0;
@@ -59,6 +61,8 @@ function [plt] = InitDataPlot( maxloops, uvms)
     plt.A.mis = 0;
     plt.A.alt = 0;
     plt.A.all = 0;
+%% V NUll vel 
+    plt.A.vc = zeros(6); 
 %% Joint Limits
     plt.A.jl_min = 0;
     plt.A.jl_max = 0;
