@@ -59,6 +59,7 @@ uvms.q = [-0.0031 0 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
 % uvms.v_init_pose = [8.5 38.5 -36   0 -0.06 0.5]'; % 1.2
 uvms.v_init_pose = [8.5 38.5 -36  0 -0.06 0.5]'; % ex 3.1
 
+% uvms.v_init_pose = [6.5 36.5 -36  0 -0.06 0.5]'; 
 
 
 % uvms.v_init_pose = [8.5 38.5 -38   0 -0.06 0.5]'; % original
@@ -76,12 +77,13 @@ uvms.eTt = eye(4);
 %Vehicle control goal 
 %uvms.vgoalPosition = [10.2025   37.3748  -38.8860+2]'; % goal position w.r.t veichle frame 
 % uvms.vgoalPosition = [12 30 -33]'; % 1.1 inventato
-% uvms.vgoalPosition = [10.5 37.5 -38]'; % ex3
-uvms.vgoalPosition = [10.5 37.5 -35]'; % ex3 alto
+uvms.vgoalPosition = [10.5 37.5 -38]'; % ex3
+% uvms.vgoalPosition = [7.5 38.5 -38]'; % Test Mis
+%uvms.vgoalPosition = [10.5 37.5 -35]'; % ex3 alto
 %uvms.vgoalPosition = rock_center;
-% uvms.wRgv = rotation(0 , pi/3 ,0); % R matrix to place the goal 45� w.r.t. the ground, use it to test the allignment ground task
-% uvms.wRgv = rotation(0, -0.06 ,0.5); % ex3
-uvms.wRgv = rotation(0, -0.06 ,1.57); % big misal
+%uvms.wRgv = rotation(0 , -pi/3 ,pi/3); % R matrix to place the goal 45� w.r.t. the ground, use it to test the allignment ground task
+uvms.wRgv = rotation(0, -0.06 ,0.5); % ex3
+% uvms.wRgv = rotation(0, -0.06 ,1.57); % big misal
 uvms.wTgv = [uvms.wRgv uvms.vgoalPosition; 0 0 0 1]; % new matrix which rappresent the goal from the veichle
 
 % Preallocation (data structure to plot what we want)
@@ -114,12 +116,14 @@ for t = 0:deltat:end_time
     % the sequence of iCAT_task calls defines the priority
      
     
-     [Qp, ydotbar] = iCAT_task(uvms.A.act,  uvms.Jact,    Qp, ydotbar, uvms.xdot.act,  0.0001,   0.01, 10); % Ex2: mantain 1m distasnce from the seaflor 
-     [Qp, ydotbar] = iCAT_task(uvms.A.ha,  uvms.Jha,    Qp, ydotbar, uvms.xdot.ha,  0.0001,   0.01, 10); % misallignment of Kw (vehicle parallel w.r.t the ground)
+     %[Qp, ydotbar] = iCAT_task(uvms.A.act,  uvms.Jact,    Qp, ydotbar, uvms.xdot.act,  0.0001,   0.01, 10); % Ex2: mantain 1m distasnce from the seaflor 
+     %[Qp, ydotbar] = iCAT_task(uvms.A.ha,  uvms.Jha,    Qp, ydotbar, uvms.xdot.ha,  0.0001,   0.01, 10); % misallignment of Kw (vehicle parallel w.r.t the ground)
      [Qp, ydotbar] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp, ydotbar, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
      [Qp, ydotbar] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp, ydotbar, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame
      [Qp, ydotbar] = iCAT_task(uvms.A.lr,  uvms.Jlr,    Qp, ydotbar, uvms.xdot.lr,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
+     
      [Qp, ydotbar] = iCAT_task(uvms.A.la,  uvms.Jla,    Qp, ydotbar, uvms.xdot.la,  0.0001,   0.01, 10); % Ex3 landing task 
+     
 %      [Qp, ydotbar] = iCAT_task(uvms.A.t,  uvms.Jt,    Qp, ydotbar, uvms.xdot.t,  0.0001,   0.01, 10); % tool frame task (e.e. (tool frame) reaches the goal )    
      %[....]
      [Qp, ydotbar] = iCAT_task( eye(13),   eye(13),    Qp, ydotbar, zeros(13,1),  0.0001,   0.01, 10);    % it stops the movement (this task should be the last one)

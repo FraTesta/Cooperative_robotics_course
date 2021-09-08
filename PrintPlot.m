@@ -7,44 +7,46 @@ function [ ] = PrintPlot( plt, uvms )
 % ACTIONS = 1 % 2 actions
 ACTIONS = 1;
 
-figure(1);
-subplot(2,1,1);
-hplot = plot(plt.t, plt.q);
-set(hplot, 'LineWidth', 1);
-hold on;
-hplot2 = plot(plt.t, plt.jlmin);
-set(hplot2, 'LineWidth', 1);
-legend('q_1','q_2','q_3','q_4','q_5','q_6','q_7');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-if ACTIONS == 2
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-    hold on;
-    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-end 
-subplot(2,1,2);
-hplot = plot(plt.t, plt.q_dot);
-set(hplot, 'LineWidth', 1);
-legend('qdot_1','qdot_2','qdot_3','qdot_4','qdot_5','qdot_6','qdot_7');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-if ACTIONS == 2
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-    hold on;
-    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-end 
+% figure(1);
+% subplot(2,1,1);
+% hplot = plot(plt.t, plt.q);
+% set(hplot, 'LineWidth', 1);
+% hold on;
+% hplot2 = plot(plt.t, plt.jlmin);
+% set(hplot2, 'LineWidth', 1);
+% legend('q_1','q_2','q_3','q_4','q_5','q_6','q_7');
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% subplot(2,1,2);
+% hplot = plot(plt.t, plt.q_dot);
+% set(hplot, 'LineWidth', 1);
+% legend('qdot_1','qdot_2','qdot_3','qdot_4','qdot_5','qdot_6','qdot_7');
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
 % 
 figure(2);
-subplot(3,1,1);
-hplot = plot(plt.t, plt.p);
+% subplot(2,1,1);
+%%%% Linear Pos
+subplot(2,2,1)
+hplot = plot(plt.t, plt.p(1:3,:));
 set(hplot, 'LineWidth', 1);
-legend('x','y','z','roll','pitch','yaw');
+legend('x','y','z','AutoUpdate','off');
 if ACTIONS == 1
     hold on;
     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
@@ -55,9 +57,12 @@ if ACTIONS == 2
     hold on;
     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
 end 
-subplot(2,1,2);
-hplot = plot(plt.t, plt.p_dot);
+% subplot(2,1,2);
+%%%% Angular Pos
+subplot(2,2,2)
+hplot = plot(plt.t, plt.p(4:6,:));
 set(hplot, 'LineWidth', 1);
+legend('roll','pitch','yaw','AutoUpdate','off');
 if ACTIONS == 1
     hold on;
     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
@@ -68,7 +73,41 @@ if ACTIONS == 2
     hold on;
     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
 end 
-legend('xdot', 'ydot','zdot','omega_x','omega_y','omega_z');
+%%%% Linear Vel
+subplot(2,2,3)
+hplot = plot(plt.t, plt.p_dot(1:3,:));
+set(hplot, 'LineWidth', 1);
+legend('v_x', 'v_y','v_z','AutoUpdate','off');
+if ACTIONS == 1
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+end 
+if ACTIONS == 2
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+    hold on;
+    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+end 
+
+
+%%%% Angular Velocities
+subplot(2,2,4)
+hplot = plot(plt.t, plt.p_dot(4:6,:));
+set(hplot, 'LineWidth', 1);
+
+legend('\omega_x','\omega_y','\omega_z','AutoUpdate','off');
+if ACTIONS == 1
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+end 
+if ACTIONS == 2
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+    hold on;
+    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+end 
+
+
 % 
 % 
 % figure(3);
@@ -170,78 +209,79 @@ end
 
 %% Dinstance and misalignment norm w.r.t. the tool and vehicle goals 
 
-figure(7)
-subplot(2,2,1);
-hplot = plot(plt.t,  plt.v_misNorm);
-title('Misalignment norm w.r.t. the vehicle goal');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-if ACTIONS == 2
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-    hold on;
-    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-end 
-xlabel('t[s]');
-ylabel('[rad]');
-set(hplot, 'LineWidth', 2);
-legend('Misalignment norm');
+% figure(7)
+% subplot(2,2,1);
+% hplot = plot(plt.t,  plt.v_misNorm);
+% title('Misalignment norm w.r.t. the vehicle goal');
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% xlabel('t[s]');
+% ylabel('[rad]');
+% set(hplot, 'LineWidth', 2);
+% legend('Misalignment norm');
+% 
+% subplot(2,2,2);
+% hplot = plot(plt.t, plt.v_distNorm);
+% title('Distance norm w.r.t. the vehicle goal');
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% xlabel('t[s]');
+% ylabel('[m]');
+% set(hplot, 'LineWidth', 2);
+% legend('Distance norm');
+% 
+% subplot(2,2,3);
+% hplot = plot(plt.t, plt.g_misNorm);
+% title('Misalignment norm w.r.t. the tool goal');
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% xlabel('t[s]');
+% ylabel('[rad]');
+% set(hplot,'Color','green', 'LineWidth', 2);
+% legend('Misalignment norm');
+% 
+% subplot(2,2,4);
+% hplot = plot(plt.t, plt.g_distNorm);
+% title('Distance norm w.r.t. the tool goal');
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% xlabel('t[s]');
+% ylabel('[m]');
+% set(hplot,'Color','green', 'LineWidth', 2);
+% legend('Misalignment norm');
 
-subplot(2,2,2);
-hplot = plot(plt.t, plt.v_distNorm);
-title('Distance norm w.r.t. the vehicle goal');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-if ACTIONS == 2
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-    hold on;
-    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-end 
-xlabel('t[s]');
-ylabel('[m]');
-set(hplot, 'LineWidth', 2);
-legend('Distance norm');
-
-subplot(2,2,3);
-hplot = plot(plt.t, plt.g_misNorm);
-title('Misalignment norm w.r.t. the tool goal');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-if ACTIONS == 2
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-    hold on;
-    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-end 
-xlabel('t[s]');
-ylabel('[rad]');
-set(hplot,'Color','green', 'LineWidth', 2);
-legend('Misalignment norm');
-
-subplot(2,2,4);
-hplot = plot(plt.t, plt.g_distNorm);
-title('Distance norm w.r.t. the tool goal');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-if ACTIONS == 2
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-    hold on;
-    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-end 
-xlabel('t[s]');
-ylabel('[m]');
-set(hplot,'Color','green', 'LineWidth', 2);
-legend('Misalignment norm');
 %% Horizontal altidtude Activation function
 % figure(8);
 % hplot = plot(plt.t, plt.misActFunc);
@@ -260,54 +300,56 @@ legend('Misalignment norm');
 % ylabel('Activation value');
 % set( hplot, 'LineWidth', 2);
 % legend( 'Activation function');
+
 %% Altitude 
-figure(9);
-subplot(2,1,1);
-hplot1 = plot(plt.t, plt.altitude);
-set( hplot1, 'Color','green','LineWidth', 2);
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-if ACTIONS == 2
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-    hold on;
-    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-end 
-title('Altitude of the vehicle');
-xlabel('time [s]');
-ylabel('altitude [m]');
-hold on;
-hplot2 = plot(plt.t, plt.unsafeAlt,'--');
-set( hplot2,'Color','red', 'LineWidth', 2);
+% figure(9);
+% subplot(2,1,1);
+% hplot1 = plot(plt.t, plt.altitude);
+% set( hplot1, 'Color','green','LineWidth', 2);
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% title('Altitude of the vehicle');
+% xlabel('time [s]');
+% ylabel('altitude [m]');
+% hold on;
+% hplot2 = plot(plt.t, plt.unsafeAlt,'--');
+% set( hplot2,'Color','red', 'LineWidth', 2);
+% 
+% 
+% hold on;
+% hplot3 = plot(plt.t, plt.minTre,'--');
+% set( hplot3,'Color','cyan', 'LineWidth', 2);
+% hold on;
+% hplot4 = plot(plt.t, plt.maxTre,'--');
+% set( hplot4,'Color','blue', 'LineWidth', 2);
+% legend( 'Altitude of the vehicle','Unsafe altitude','Min activation threshold','Max activation threshold');
+% 
+% subplot(2,1,2);
+% hplot = plot(plt.t, plt.A.act);
+% set( hplot, 'LineWidth', 2);
+% title('Activation of the safety altitude control');
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% xlabel('time [s]');
+% ylabel('altitude [m]');
+% legend( 'Activation function ');
 
-
-hold on;
-hplot3 = plot(plt.t, plt.minTre,'--');
-set( hplot3,'Color','cyan', 'LineWidth', 2);
-hold on;
-hplot4 = plot(plt.t, plt.maxTre,'--');
-set( hplot4,'Color','blue', 'LineWidth', 2);
-legend( 'Altitude of the vehicle','Unsafe altitude','Min activation threshold','Max activation threshold');
-
-subplot(2,1,2);
-hplot = plot(plt.t, plt.A.act);
-set( hplot, 'LineWidth', 2);
-title('Activation of the safety altitude control');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-if ACTIONS == 2
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-    hold on;
-    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-end 
-xlabel('time [s]');
-ylabel('altitude [m]');
-legend( 'Activation function ');
 %% Landing
 % figure(10);
 % subplot(2,1,1);
@@ -345,44 +387,44 @@ legend( 'Activation function ');
 % ylabel('Activation value');
 % legend( 'Activation function');
 %% align with rock
-% figure(11);
-% subplot(2,1,1);
-% hplot1 = plot(plt.t, plt.misRock);
-% set( hplot1,'Color','red','LineWidth', 2);
-% hold on;
-% hplot1 = plot(plt.t, plt.altitude);
-% set( hplot1,'Color','green','LineWidth', 2);
+figure(11);
+subplot(2,1,1);
+hplot1 = plot(plt.t, plt.misRock);
+set( hplot1,'Color','red','LineWidth', 2);
+hold on;
+hplot1 = plot(plt.t, plt.altitude);
+set( hplot1,'Color','green','LineWidth', 2);
 % title('Misalignment w.r.t. the rock');
-% legend('Misalignment w.r.t. the rock','Vehicle altitude ')
-% xlabel('time [s]');
+legend('Misalignment w.r.t. the rock','Vehicle altitude', 'AutoUpdate','off')
+xlabel('time [s]');
 % ylabel('[rad]');
-% if ACTIONS == 1
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-% end 
-% if ACTIONS == 2
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-%     hold on;
-%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-% end 
-% 
-% subplot(2,1,2);
-% hplot4 = plot(plt.t, plt.A.all);
-% set( hplot4,'Color','green','LineWidth', 2);
-% if ACTIONS == 1
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-% end 
-% if ACTIONS == 2
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-%     hold on;
-%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-% end 
+if ACTIONS == 1
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+end 
+if ACTIONS == 2
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+    hold on;
+    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+end 
+
+subplot(2,1,2);
+hplot4 = plot(plt.t, plt.A.all);
+set( hplot4,'Color','green','LineWidth', 2);
+if ACTIONS == 1
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+end 
+if ACTIONS == 2
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+    hold on;
+    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+end 
 % title('Complete Activation function');
-% xlabel('time [s]');
-% ylabel('Activation')
+xlabel('time [s]');
+ylabel('Activation')
 %% Joits limits
 % figure(12);
 % title('Joint Limits Activation functions');
@@ -450,32 +492,32 @@ legend( 'Activation function ');
 % hplot1 = plot(plt.t, plt.A.ua);
 % set( hplot1,'LineWidth', 2);
 %% Activations
-figure(16);
-
-hplot1 = plot(plt.t, plt.Ala);
-set( hplot1,'LineWidth', 2);
-hold on;
-% hplot2 = plot(plt.t, plt.A.all);
+% figure(16);
+% 
+% hplot1 = plot(plt.t, plt.Ala);
+% set( hplot1,'LineWidth', 2);
+% hold on;
+% % hplot2 = plot(plt.t, plt.A.all);
+% % set( hplot2,'LineStyle','--','LineWidth', 2);
+% % hold on;
+% hplot2 = plot(plt.t, plt.A.vc);
 % set( hplot2,'LineStyle','--','LineWidth', 2);
 % hold on;
-hplot2 = plot(plt.t, plt.A.vc);
-set( hplot2,'LineStyle','--','LineWidth', 2);
-hold on;
-hplot3 = plot(plt.t, plt.A.t);
-set( hplot3,'LineWidth', 2);
-legend('Landing','Vehicle Null Vel','Tool Control');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-if ACTIONS == 2
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-    hold on;
-    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-end 
-xlabel('time [s]');
-ylabel('Activation value');
+% hplot3 = plot(plt.t, plt.A.t);
+% set( hplot3,'LineWidth', 2);
+% legend('Landing','Vehicle Null Vel','Tool Control');
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% xlabel('time [s]');
+% ylabel('Activation value');
 
 end
 

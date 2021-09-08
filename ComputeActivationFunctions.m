@@ -34,12 +34,16 @@ uvms.A.vpos = eye(3) * uvms.Aa.vpos;
 uvms.A.vatt = eye(3) * uvms.Aa.vatt;
 uvms.A.ha = IncreasingBellShapedFunction(0.1, 0.2, 0, 1 , norm(uvms.v_rho)) * uvms.Aa.ha;
 uvms.A.act = DecreasingBellShapedFunction( uvms.Aact.minTre, uvms.Aact.maxTre, 0, 1 , uvms.v_altitude) * uvms.Aa.act;
-uvms.A.la = IncreasingBellShapedFunction(0, 0.5, 0, 1 , mission.phase_time) * uvms.Aa.la;
+uvms.A.la = IncreasingBellShapedFunction(0, 2, 0, 1 , mission.phase_time) * uvms.Aa.la; %prima 0.5 come t
+
+%% Caso misallignment dipedente da mission?time
+uvms.A.lr = IncreasingBellShapedFunction(0, 2, 0, 1 , mission.phase_time) * uvms.Aa.lr;
 % uvms.A.lr = DecreasingBellShapedFunction(0, 10, 0, 1 , uvms.v_altitude) * uvms.Aa.lr;
 % %combinazione mis, alt
-% uvms.A.lr = DecreasingBellShapedFunction(1, 3, 0, 0.5 , uvms.v_altitude) + uvms.Aa.lr;
+uvms.A.lr = DecreasingBellShapedFunction(1, 3, 0, 0.7 , uvms.v_altitude) + uvms.Aa.lr;
 % %senza nulla
-uvms.A.lr = 1 * uvms.Aa.lr;
+
+%uvms.A.lr = 1 * uvms.Aa.lr;
 uvms.A.vc = eye(6) * uvms.Aa.vc ;
 uvms.A.t = eye(6) * uvms.Aa.t;
 % for j= 1:7
