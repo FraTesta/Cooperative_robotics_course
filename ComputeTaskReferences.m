@@ -46,7 +46,7 @@ uvms.xdot.ua = uvms.p_dot; % just the w_x feedback as in the notes
 uvms.xdot.la = Saturate( 0.5*(0.05- norm(uvms.v_altitude)),1); 
 %% Landing aligned with rock
 % theta() = ReducedVersorLemma(uvms.v_dp,uvms.v_iv);
-uvms.xdot.lr = 0.08 * (0 - norm(uvms.v_rho_r)); % 0,02 0,8 1.5
+uvms.xdot.lr = 1 * (0 - norm(uvms.v_rho_r)); % 0,02 0,8 1.5
 % uvms.xdot.lr = Saturate(uvms.xdot.lr, 1);
 % uvms.xdot.lr = Saturate(0.2, uvms.v_rho_r);
 %% Vehicle constraints

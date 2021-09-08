@@ -12,7 +12,7 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
 % ex2 = 2
 % ex4 = 4
 % ex4 current = 41 
-uvms.EX = 41;
+uvms.EX = 3;
 %% Ex 2
 if uvms.EX == 2
       switch mission.phase % initialize to 1 
@@ -68,6 +68,7 @@ if uvms.EX == 3
            case 2 
             uvms.Aa.t = IncreasingBellShapedFunction(0,0.5, 0, 1, mission.phase_time);
             uvms.Aa.lr = eye(1);
+%             uvms.Aa.lr = IncreasingBellShapedFunction(0, 1.57, 0.1, 0.5, norm(uvms.v_rho_r));
             uvms.Aa.ha = eye(1); 
             uvms.Aa.vpos = DecreasingBellShapedFunction(0,1, 0, 1, mission.phase_time);
             uvms.Aa.vatt = DecreasingBellShapedFunction(0,1, 0, 1, mission.phase_time);

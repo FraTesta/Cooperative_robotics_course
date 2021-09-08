@@ -39,7 +39,7 @@ ACTIONS = 1;
 %     hold on;
 %     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
 % end 
-%% V 
+% 
 figure(2);
 % subplot(2,1,1);
 %%%% Linear Pos
@@ -57,12 +57,12 @@ if ACTIONS == 2
     hold on;
     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
 end 
-
+subplot(2,1,2);
 %%%% Angular Pos
 subplot(2,2,2)
 hplot = plot(plt.t, plt.p(4:6,:));
 set(hplot, 'LineWidth', 1);
-legend('rool','pitch', 'yaw','AutoUpdate','off');
+legend('qdot_1','qdot_2','qdot_3','qdot_4','qdot_5','qdot_6','qdot_7','AutoUpdate','off');
 if ACTIONS == 1
     hold on;
     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
@@ -77,7 +77,7 @@ end
 subplot(2,2,3)
 hplot = plot(plt.t, plt.p_dot(1:3,:));
 set(hplot, 'LineWidth', 1);
-legend('v_x','v_y','v_z','AutoUpdate','off');
+legend('x','y','z','roll','pitch','yaw','AutoUpdate','off');
 if ACTIONS == 1
     hold on;
     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
@@ -88,7 +88,9 @@ if ACTIONS == 2
     hold on;
     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
 end 
-% Angular Velocities
+
+
+%% Angular Velocities
 subplot(2,2,4)
 hplot = plot(plt.t, plt.p_dot(4:6,:));
 set(hplot, 'LineWidth', 1);
@@ -104,6 +106,7 @@ if ACTIONS == 2
     hold on;
     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
 end 
+legend('xdot', 'ydot','zdot','omega_x','omega_y','omega_z','AutoUpdate','off');
 % 
 % 
 % figure(3);

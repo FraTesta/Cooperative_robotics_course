@@ -111,4 +111,4 @@ if mission.phase == 3
 end
 
 
-plt.A.test(:, loop) = uvms.A.test;
+% plt.A.test(:, loop) = uvms.A.test;

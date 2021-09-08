@@ -77,9 +77,10 @@ uvms.eTt = eye(4);
 %Vehicle control goal 
 %uvms.vgoalPosition = [10.2025   37.3748  -38.8860+2]'; % goal position w.r.t veichle frame 
 % uvms.vgoalPosition = [12 30 -33]'; % 1.1 inventato
-uvms.vgoalPosition = [10.5 37.5 -38]'; % ex3
+% uvms.vgoalPosition = [10.5 37.5 -38]'; % ex3
 % uvms.vgoalPosition = [7.5 38.5 -38]'; % Test Mis
-%uvms.vgoalPosition = [10.5 37.5 -35]'; % ex3 alto
+% uvms.vgoalPosition = [10.5 37.5 -35]'; % ex3 alto
+uvms.vgoalPosition = [10.5 37.5 -39]'; % ex3 basso
 %uvms.vgoalPosition = rock_center;
 %uvms.wRgv = rotation(0 , -pi/3 ,pi/3); % R matrix to place the goal 45� w.r.t. the ground, use it to test the allignment ground task
 uvms.wRgv = rotation(0, -0.06 ,0.5); % ex3
