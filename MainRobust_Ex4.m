@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 15; %25
+end_time = 10; %25
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -112,11 +112,12 @@ for t = 0:deltat:end_time
     % add all the other tasks here!!!!!
     % the sequence of iCAT_task calls defines the priority
     
-     [Qp, ydotbar] = iCAT_task(uvms.A.mu,  uvms.Jmu,    Qp, ydotbar, uvms.xdot.mu,  0.0001,   0.01, 10); 
-%      [Qp, ydotbar] = iCAT_task(uvms.A.jl_min,  uvms.Jjl,    Qp, ydotbar, uvms.xdot.jl_min,  0.0001,   0.01, 10); 
-%      [Qp, ydotbar] = iCAT_task(uvms.A.jl_max,  uvms.Jjl,    Qp, ydotbar, uvms.xdot.jl_max,  0.0001,   0.01, 10); 
      [Qp, ydotbar] = iCAT_task(uvms.A.act,  uvms.Jact,    Qp, ydotbar, uvms.xdot.act,  0.0001,   0.01, 10); % Ex2: mantain 1m distasnce from the seaflor 
      [Qp, ydotbar] = iCAT_task(uvms.A.ha,  uvms.Jha,    Qp, ydotbar, uvms.xdot.ha,  0.0001,   0.01, 10); % misallignment of Kw (vehicle parallel w.r.t the ground)
+
+     [Qp, ydotbar] = iCAT_task(uvms.A.jl,  uvms.Jjl,    Qp, ydotbar, uvms.xdot.jl,  0.0001,   0.01, 10); 
+
+     [Qp, ydotbar] = iCAT_task(uvms.A.mu,  uvms.Jmu,    Qp, ydotbar, uvms.xdot.mu,  0.0001,   0.01, 10); 
      [Qp, ydotbar] = iCAT_task(uvms.A.lr,  uvms.Jlr,    Qp, ydotbar, uvms.xdot.lr,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
      [Qp, ydotbar] = iCAT_task(uvms.A.la,  uvms.Jla,    Qp, ydotbar, uvms.xdot.la,  0.0001,   0.01, 10); % Ex3 landing task
      [Qp, ydotbar] = iCAT_task(uvms.A.vc,  uvms.Jvc,    Qp, ydotbar, uvms.xdot.vc,  0.0001,   0.01, 10); % vehicle zeros velocities constraint
@@ -133,15 +134,22 @@ for t = 0:deltat:end_time
     uvms.q_dot = ydotbar(1:7);
     uvms.p_dot = ydotbar(8:13);
     
+%     if mission.phase == 2
+%         jd = 3 * sin(2*pi*t);
+%         uvms.q_dot(3) = uvms.q_dot(3) + 5;  
+%     end
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;
     
+
     %% Q3 segnale che simula la corrente
 
-    if mission.phase == 2 && uvms.EX == 41
-        current = 0.2*sin(2*pi*0.5*t) + 0.25;
-        uvms.p_dot(2) = uvms.p_dot(2) + current; 
-    end
+%     if mission.phase == 2 && uvms.EX == 41
+%         current = 0.2*sin(2*pi*0.5*t) + 0.25;
+%         uvms.p_dot(2) = uvms.p_dot(2) + current; 
+%     end
+
+
     %% 
     % beware: p_dot should be projected on <v> !!!!!!!!!!!!!!!!!!!!!!!!!!!
     uvms.p = integrate_vehicle(uvms.p, uvms.p_dot, deltat); 
@@ -181,6 +189,6 @@ end
 fclose(uVehicle);
 fclose(uArm);
 
-PrintPlot(plt);
+PrintPlot(plt, uvms);
 
 end

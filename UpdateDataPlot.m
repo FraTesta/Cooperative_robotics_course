@@ -94,8 +94,10 @@ plt.A.all(:,loop) = uvms.A.lr;
 %% V Null vell 
 plt.A.vc(1:6, loop) = diag(uvms.A.vc); 
 %% Joint limits 
-plt.A.jl_min(1:7,loop) = diag(uvms.A.jl_min);
-plt.A.jl_max(1:7,loop) = diag(uvms.A.jl_max);
+plt.A.jl(1:7,loop) = diag(uvms.A.jl);
+plt.qtre(:, loop) = uvms.q(3);
+% plt.A.jl_min(1:7,loop) = diag(uvms.A.jl_min);
+% plt.A.jl_max(1:7,loop) = diag(uvms.A.jl_max);
 %% Prefered Shape
 plt.prefShape(:,loop) = uvms.pref_shape;
 %% Ex6 
@@ -107,3 +109,6 @@ end
 if mission.phase == 3
     plt.changePhaseTime2 = uvms.changePhaseTime2;
 end
+
+
+plt.A.test(:, loop) = uvms.A.test;

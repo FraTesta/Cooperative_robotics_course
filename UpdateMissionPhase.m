@@ -12,7 +12,7 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
 % ex2 = 2
 % ex4 = 4
 % ex4 current = 41 
-uvms.EX = 3;
+uvms.EX = 41;
 %% Ex 2
 if uvms.EX == 2
       switch mission.phase % initialize to 1 
@@ -24,7 +24,6 @@ if uvms.EX == 2
             uvms.Aa.act = eye(1);
             uvms.Aa.la = zeros(1);
             uvms.Aa.mu = 0;
-            uvms.Aa.lr = zeros(1);
             %criteria on which we change action 
             [w_vang,w_vlin] = CartError(uvms.wTgv , uvms.wTv); % distance from the goal 
             if(norm(w_vlin(1:2)) < 0.15) % if it is under 10 cm
@@ -79,6 +78,7 @@ if uvms.EX == 3
    end 
  end 
       
+
 %% Ex 4
 if uvms.EX == 4
       switch mission.phase % initialize to 1 
@@ -151,52 +151,63 @@ if uvms.EX == 41
             uvms.Aa.vatt = zeros(3);
             uvms.Aa.vc = eye(6);
             uvms.Aa.la = zeros(1);
-            %uvms.Aa.lr = zeros(1);
-            uvms.Aa.lr = IncreasingBellShapedFunction(0, 1.57, 0, 0.5, norm(uvms.v_rho_r));
+            uvms.Aa.lr = zeros(1);
             uvms.Aa.act = zeros(1);
             uvms.Aa.mu = 1;
       end 
    end 
-      
-%% Bho
-%    switch mission.phase % initialize to 1 
-%        case 1 % action A1
-%             uvms.Aa.vpos = eye(3); % active 
-%             uvms.Aa.vatt = eye(3); % active
-%             uvms.Aa.ha = eye(1); % it's a scalar 
-%             uvms.Aa.t = zeros(6); % it's deactivated 
-%             
-%             % criteria on which we change action 
-%             [w_vang,w_vlin] = CartError(uvms.wTgv , uvms.wTv); % distance from the goal 
-%             if(norm(w_vlin) < 0.1) % if it is under 10 cm
-%                 uvms.mission.phase  = 2; % switch to second action phase 
-%                 uvms.mission.phase_time = 0; % reset the time variable for the next activation and dectivation functions 
-%             end 
-% %             
-%             %% As3 mission for landing and alignment with the rock
-%             uvms.Aa.vpos = eye(3);
-%             uvms.Aa.vatt = eye(3);
-%             uvms.Aa.ha = eye(1);
-%             uvms.Aa.act = eye(1);
-%             uvms.Aa.la = 0;
-%             uvms.Aa.lr = 0;
-%             uvms.Aa.t = zeros(6);
-%             uvms.Aa.vc = zeros(6);
-%             uvms.Aa.jl = zeros(7);
-%             [w_vang,w_vlin] = CartError(uvms.wTgv , uvms.wTv); % distance from the goal
-%             if(norm(w_vlin(1:2)) < 0.2)
-%                 mission.phase  = 2;
-%                 mission.phase_time = 0;
-%             end
-% %                         
-% %             
-%         case 2
+if uvms.EX == 42
+      switch mission.phase % initialize to 1 
+        case 1 % action A1
+            uvms.Aa.vpos = eye(3); % active 
+            uvms.Aa.vatt = eye(3); % active
+            uvms.Aa.ha = eye(1); % it's a scalar 
+            uvms.Aa.t = zeros(6); % it's deactivated 
+            uvms.Aa.act = eye(1);
+            uvms.Aa.la = zeros(1);
+            uvms.Aa.mu = 0;
+            uvms.Aa.lr = 0;
+            uvms.Aa.jl = zeros(7);
+            %criteria on which we change action 
+            [w_vang,w_vlin] = CartError(uvms.wTgv , uvms.wTv); % distance from the goal 
+            if(norm(w_vlin(1:2)) < 0.15) % if it is under 10 cm
+                mission.phase = 2; % switch to second action phase 
+                uvms.changePhaseTime = mission.phase_time;
+                mission.phase_time = 0; % reset the time variable for the next activation and dectivation functions 
 
-% % %             uvms.Aa.t = IncreasingBellShapedFunction(0, 2, 0, 1 , mission.phase_time) * eye(6);           
-% % %             uvms.Aa.ha = eye(1); % keep horizontal altitude active
-% % %             %deactivate vpose and vatt
-% % %             uvms.Aa.vpos = DecreasingBellShapedFunction(0, 2, 0, 1 , mission.phase_time) * eye(3);
-% % %             uvms.Aa.vatt = DecreasingBellShapedFunction(0, 2, 0, 1 , mission.phase_time) * eye(3);
+            end 
+       case 2
+            uvms.Aa.t = zeros(6);           
+            uvms.Aa.ha = eye(1);
+            uvms.Aa.vpos = zeros(3);
+            uvms.Aa.vatt = zeros(3);
+            uvms.Aa.la = IncreasingBellShapedFunction(0, 0.3, 0, 1, uvms.v_altitude);
+            uvms.Aa.lr = IncreasingBellShapedFunction(0, 0.5, 0, 1,mission.phase_time);
+            uvms.Aa.act = zeros(1);
+           if(uvms.v_altitude < 0.15) % if it is under 10 cm
+                mission.phase  = 3;
+                uvms.changePhaseTime2 = uvms.changePhaseTime + mission.phase_time;
+                mission.phase_time = 0;
+           end
+      case 3
+            uvms.Aa.t = IncreasingBellShapedFunction(0,0.5, 0, 1, mission.phase_time);           
+            uvms.Aa.ha = eye(1); 
+            uvms.Aa.vpos = zeros(3);
+            uvms.Aa.vatt = zeros(3);
+            uvms.Aa.vc = eye(6);
+            uvms.Aa.la = zeros(1);
+            uvms.Aa.lr = zeros(1);
+            uvms.Aa.act = zeros(1);
+            uvms.Aa.mu = 1;
+            uvms.Aa.jl = eye(7);
+      end 
+end 
+
+            
+
+
+
+
 %% As3 mission for landing and alignment with the rock
 %             uvms.Aa.vpos = zeros(3);
 %             uvms.Aa.vatt = zeros(3);
@@ -228,38 +239,5 @@ if uvms.EX == 41
 %             uvms.Aa.jl = eye(7);
 % end
 
-%% Mission for Dextrov 
-
-%% Ex 5
-% EX5.1 No target position, the tool rules
-% uvms.Aa.ha = eye(1);
-% uvms.Aa.t = eye(6);
-% % uvms.Aa.ps = eye(4);
-% uvms.Aa.ps = zeros(4);
-% uvms.Aa.jl = eye(7);
-
-%% Ex 6
-%     switch mission.phase % initialize to 1 
-%          case 1
-%             uvms.Aa.vpos = eye(3); % active 
-%             uvms.Aa.vatt = eye(3); % active
-%             uvms.Aa.ha = eye(1); % it's a scalar 
-%             uvms.Aa.t = eye(6);%zeros(6); % it's deactivated 
-%             uvms.Aa.ps = zeros(4);
-%             uvms.Aa.ua = zeros(6);
-%             % planar dinstance from the goal (only along x and y)
-%             if(norm(uvms.wTgv - uvms.wTv) < 0.5) % if it is under 10 cm
-%                 disp('---Navigation Accomplished---')
-%                 mission.phase  = 2;
-%                 mission.phase_time = 0;
-%             end
-%          case 2
-%             uvms.Aa.vpos = eye(3); % active 
-%             uvms.Aa.vatt = eye(3); % active
-%             uvms.Aa.ha = eye(1); % it's a scalar 
-%             uvms.Aa.t = IncreasingBellShapedFunction(0, 1, 0, 1, mission.phase_time);
-% %             uvms.Aa.ua = eye(6);
-%             uvms.Aa.ps = eye(4);
-%     end
 end
 

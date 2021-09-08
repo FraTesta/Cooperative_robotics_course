@@ -53,8 +53,19 @@ uvms.xdot.lr = 0.08 * (0 - norm(uvms.v_rho_r)); % 0,02 0,8 1.5
 % uvms.xdot.vc = 0.5 * (zeros(6,1) - uvms.p_dot);
 uvms.xdot.vc = zeros(6,1);
 %% Joint limits
-uvms.xdot.jl_min = 0.5 * (uvms.jlmin - uvms.q);
-uvms.xdot.jl_max = 0.5 * (uvms.jlmax - uvms.q);
+% uvms.xdot.jl_min = 0.5 * (uvms.jlmin - uvms.q);
+% uvms.xdot.jl_max = 0.5 * (uvms.jlmax - uvms.q);
+lambda_jl = 0.2;
+for j=1:7
+%     if uvms.q(j) > (uvms.jlmin(j) + uvms.jlmax(j))/2
+%          uvms.xdot.jl(j) = lambda_jl*( - uvms.q(j));
+% %          uvms.xdot.jl(j) = lambda_jl*(uvms.jlmin(j) - uvms.q(j));
+%     else
+%          uvms.xdot.jl(j) = lambda_jl*( uvms.q(j));
+% %          uvms.xdot.jl(j) = lambda_jl*(uvms.jlmax(j) - uvms.q(j));
+%     end   
+uvms.xdot.jl(j) = lambda_jl * ((uvms.jlmin(j) + uvms.jlmax(j))/2 - uvms.q(j));
+end
 %% Joint prefered shape
 uvms.pref_shape = [-0.0031 1.2585 0.0128 -1.2460]';
 uvms.xdot.ps = 0.5 * (uvms.pref_shape - uvms.q(1:4));

@@ -20,9 +20,11 @@ uvms.q_dot = [0 0 0 0 0 0 0]';
 uvms.p_dot = [0 0 0 0 0 0]';
 
 % joint limits corresponding to the actual MARIS arm configuration
-uvms.jlmin  = [-2.9;-1.6;-2.9;-2.95;-2.9;-1.65;-2.8];
-uvms.jlmax  = [2.9;1.65;2.9;0.01;2.9;1.25;2.8];
-
+% uvms.jlmin  = [-2.9;-1.6;-2.9;-2.95;-2.9;-1.65;-2.8]; % originale
+% uvms.jlmin = [-2.9;-1.6;-0.05;-2.95;-2.9;-1.65;-2.8]; % q3
+uvms.jlmin = [-0.5;-1;-0.05;-0.5;-1;-1;-0.8];
+uvms.jlmax  = [2.9;1.65;2.9;0.01;2.9;1.25;2.8]; % originale 
+% uvms.jlmax  = [1.0;1.65;1.0;-1;1.0;1.25;1.0];
 % to be computed at each time step
 uvms.wTv = eye(4,4);
 uvms.wTt = eye(4,4);
@@ -69,6 +71,7 @@ uvms.xdot.lr = [];
 uvms.xdot.vc = [];
 uvms.xdot.jl_min = [];
 uvms.xdot.jl_max = [];
+uvms.xdot.jl = zeros(7,1);
 uvms.xdot.ps = [];
     
 uvms.A.jl = zeros(7,7);
@@ -83,6 +86,7 @@ uvms.A.lr = 0;
 uvms.A.vc_lin = zeros(3);
 uvms.A.vc_ang = zeros(3);
 uvms.A.vc = zeros(6);
+uvms.A.jl = zeros(7);
 uvms.A.jl_min = zeros(7);
 uvms.A.jl_max = zeros(7);
 uvms.A.ps = zeros(4);
@@ -118,5 +122,6 @@ uvms.pref_shape = zeros(4,1);
  uvms.changePhaseTime2 = 0;
  
  uvms.EX = 0;
+
 end
 
