@@ -20,9 +20,9 @@ uvms.q_dot = [0 0 0 0 0 0 0]';
 uvms.p_dot = [0 0 0 0 0 0]';
 
 % joint limits corresponding to the actual MARIS arm configuration
-% uvms.jlmin  = [-2.9;-1.6;-2.9;-2.95;-2.9;-1.65;-2.8]; % originale
+uvms.jlmin  = [-2.9;-1.6;-2.9;-2.95;-2.9;-1.65;-2.8]; % originale
 % uvms.jlmin = [-2.9;-1.6;-0.05;-2.95;-2.9;-1.65;-2.8]; % q3
-uvms.jlmin = [-0.5;-1;-0.05;-0.5;-1;-1;-0.8];
+% uvms.jlmin = [-0.5;-1;-0.05;-0.5;-1;-1;-0.8];
 uvms.jlmax  = [2.9;1.65;2.9;0.01;2.9;1.25;2.8]; % originale 
 % uvms.jlmax  = [1.0;1.65;1.0;-1;1.0;1.25;1.0];
 % to be computed at each time step
@@ -72,7 +72,7 @@ uvms.xdot.vc = [];
 uvms.xdot.jl_min = [];
 uvms.xdot.jl_max = [];
 uvms.xdot.jl = zeros(7,1);
-uvms.xdot.ps = [];
+uvms.xdot.ps = zeros(4,1);
     
 uvms.A.jl = zeros(7,7);
 uvms.A.mu = 0;
@@ -105,7 +105,7 @@ uvms.Aa.ps = zeros(4);
 uvms.Aa.mu = 0;
 
 uvms.v_init_pose = zeros(3:1);
-uvms.v_rho= zeros(3:1); % for es 2
+uvms.v_rho= zeros(3,1); % for es 2
 uvms.v_n = zeros(3,1); % for es 2
 uvms.v_altitude = 0;
 uvms.plan_goal_dist = eye(1); % for es 3 

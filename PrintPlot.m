@@ -5,40 +5,37 @@ function [ ] = PrintPlot( plt, uvms )
 
 % ACTIONS = 0 % no actions
 % ACTIONS = 1 % 2 actions
-ACTIONS = 1;
+ACTIONS = 0;
 
-% figure(1);
-% subplot(2,1,1);
-% hplot = plot(plt.t, plt.q);
-% set(hplot, 'LineWidth', 1);
-% hold on;
-% hplot2 = plot(plt.t, plt.jlmin);
-% set(hplot2, 'LineWidth', 1);
-% legend('q_1','q_2','q_3','q_4','q_5','q_6','q_7');
-% if ACTIONS == 1
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-% end 
-% if ACTIONS == 2
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-%     hold on;
-%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-% end 
-% subplot(2,1,2);
-% hplot = plot(plt.t, plt.q_dot);
-% set(hplot, 'LineWidth', 1);
-% legend('qdot_1','qdot_2','qdot_3','qdot_4','qdot_5','qdot_6','qdot_7');
-% if ACTIONS == 1
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-% end 
-% if ACTIONS == 2
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-%     hold on;
-%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-% end 
+figure(1);
+subplot(2,1,1);
+hplot = plot(plt.t, plt.q);
+set(hplot, 'LineWidth', 1);
+legend('q_1','q_2','q_3','q_4','q_5','q_6','q_7');
+if ACTIONS == 1
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+end 
+if ACTIONS == 2
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+    hold on;
+    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+end 
+subplot(2,1,2);
+hplot = plot(plt.t, plt.q_dot);
+set(hplot, 'LineWidth', 1);
+legend('qdot_1','qdot_2','qdot_3','qdot_4','qdot_5','qdot_6','qdot_7');
+if ACTIONS == 1
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+end 
+if ACTIONS == 2
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+    hold on;
+    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+end 
 %% V 
 figure(2);
 % subplot(2,1,1);
@@ -117,7 +114,7 @@ end
 % legend('Amu', 'Aha');
 
 %% Path to the goal
-% TOOL = 1 con tool , TOOL = 0 no tool
+%TOOL = 1 con tool , TOOL = 0 no tool
 % TOOL = 1;
 % figure(5);
 % plot3(plt.v_goal.x, plt.v_goal.y, plt.v_goal.z); % v path
@@ -150,7 +147,7 @@ end
 % else
 %     legend( 'Path of the vehicle frame','Vehicle Start position',' Vehicle Final position','Vehicle Goal position','AutoUpdate','off');
 % end
-
+% 
 
 %% Horizontal Attitude Misalignment vector  (unit vector)
 % figure(6);
@@ -433,47 +430,47 @@ legend('Misalignment norm','AutoUpdate','off');
 % ylabel('Activation value');
 % legend( 'Activation function');
 %% align with rock
-figure(11);
-subplot(2,1,1);
-hplot1 = plot(plt.t, plt.misRock);
-set( hplot1,'Color','red','LineWidth', 2);
-hold on;
-hplot1 = plot(plt.t, plt.altitude);
-set( hplot1,'Color','green','LineWidth', 2);
-% title('Misalignment w.r.t. the rock');
-legend('Misalignment w.r.t. the rock','Vehicle altitude', 'AutoUpdate','off')
-xlabel('time [s]');
-% ylabel('[rad]');
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-if ACTIONS == 2
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-    hold on;
-    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-end 
-
-subplot(2,1,2);
-hplot4 = plot(plt.t, plt.A.all);
-set( hplot4,'Color','green','LineWidth', 2);
-if ACTIONS == 1
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-end 
-if ACTIONS == 2
-    hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-    hold on;
-    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-end 
-% title('Complete Activation function');
-xlabel('time [s]');
-ylabel('Activation')
+% figure(11);
+% subplot(2,1,1);
+% hplot1 = plot(plt.t, plt.misRock);
+% set( hplot1,'Color','red','LineWidth', 2);
+% hold on;
+% hplot1 = plot(plt.t, plt.altitude);
+% set( hplot1,'Color','green','LineWidth', 2);
+% % title('Misalignment w.r.t. the rock');
+% legend('Misalignment w.r.t. the rock','Vehicle altitude', 'AutoUpdate','off')
+% xlabel('time [s]');
+% % ylabel('[rad]');
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% 
+% subplot(2,1,2);
+% hplot4 = plot(plt.t, plt.A.all);
+% set( hplot4,'Color','green','LineWidth', 2);
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% % title('Complete Activation function');
+% xlabel('time [s]');
+% ylabel('Activation')
 %% Joits limits
 % figure(12);
-% subplot(2,1,1);
+% subplot(3,1,1);
 % title('Activation function joint limits');
 % hplot1 = plot(plt.t, plt.A.jl);
 % set( hplot1,'LineWidth', 2);
@@ -491,7 +488,24 @@ ylabel('Activation')
 % xlabel('time [s]');
 % ylabel('Activation value');
 % 
-% subplot(2,1,2);
+% subplot(3,1,2);
+% hplot1 = plot(plt.t, norm(diag(plt.A.jl)));
+% set( hplot1,'LineWidth', 2);
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% legend('Norm of the activation function')
+% xlabel('time [s]');
+% ylabel('activation value');
+% 
+% subplot(3,1,3);
 % title('Disturbed q3  evolution')
 % hplot1 = plot(plt.t, plt.qtre);
 % set( hplot1,'LineWidth', 2);
@@ -510,50 +524,50 @@ ylabel('Activation')
 % end 
 % xlabel('time [s]');
 % ylabel('[rad]');
-% 
+
 
 %% Prefered Shape 
-% figure(14);
-% subplot(2,2,1);
-% hplot1 = plot(plt.t, plt.q(1,:));
-% set( hplot1,'LineWidth', 2);
-% hold on;
-% hplot2 = plot(plt.t, plt.prefShape(1,:),'r--');
-% set( hplot2,'LineWidth', 2);
-% legend('q_1','preferred shape q_1','AutoUpdate','off');
-% xlabel('time [s]');
-% ylabel('Angular Position [rad]')
-% 
-% subplot(2,2,2);
-% hplot1 = plot(plt.t, plt.q(2,:));
-% set( hplot1,'LineWidth', 2);
-% hold on;
-% hplot2 = plot(plt.t, plt.prefShape(2,:),'r--');
-% set( hplot2,'LineWidth', 2);
-% legend('q_2','preferred shape q_2','AutoUpdate','off');
-% xlabel('time [s]');
-% ylabel('Angular Position [rad]')
-% 
-% subplot(2,2,3);
-% hplot1 = plot(plt.t, plt.q(3,:));
-% set( hplot1,'LineWidth', 2);
-% hold on;
-% hplot2 = plot(plt.t, plt.prefShape(3,:),'r--');
-% set( hplot2,'LineWidth', 2);
-% legend('q_3','preferred shape q_3','AutoUpdate','off');
-% xlabel('time [s]');
-% ylabel('Angular Position [rad]')
-% 
-% subplot(2,2,4);
-% hplot1 = plot(plt.t, plt.q(4,:));
-% set( hplot1,'LineWidth', 2);
-% 
-% hold on;
-% hplot2 = plot(plt.t, plt.prefShape(4,:),'r--');
-% set( hplot2,'LineWidth', 2);
-% legend('q_4','preferred shape q_4','AutoUpdate','off');
-% xlabel('time [s]');
-% ylabel('Angular Position [rad]')
+figure(14);
+subplot(2,2,1);
+hplot1 = plot(plt.t, plt.q(1,:));
+set( hplot1,'LineWidth', 2);
+hold on;
+hplot2 = plot(plt.t, plt.prefShape(1,:),'r--');
+set( hplot2,'LineWidth', 2);
+legend('q_1','preferred shape q_1','AutoUpdate','off');
+xlabel('time [s]');
+ylabel('Angular Position [rad]')
+
+subplot(2,2,2);
+hplot1 = plot(plt.t, plt.q(2,:));
+set( hplot1,'LineWidth', 2);
+hold on;
+hplot2 = plot(plt.t, plt.prefShape(2,:),'r--');
+set( hplot2,'LineWidth', 2);
+legend('q_2','preferred shape q_2','AutoUpdate','off');
+xlabel('time [s]');
+ylabel('Angular Position [rad]')
+
+subplot(2,2,3);
+hplot1 = plot(plt.t, plt.q(3,:));
+set( hplot1,'LineWidth', 2);
+hold on;
+hplot2 = plot(plt.t, plt.prefShape(3,:),'r--');
+set( hplot2,'LineWidth', 2);
+legend('q_3','preferred shape q_3','AutoUpdate','off');
+xlabel('time [s]');
+ylabel('Angular Position [rad]')
+
+subplot(2,2,4);
+hplot1 = plot(plt.t, plt.q(4,:));
+set( hplot1,'LineWidth', 2);
+
+hold on;
+hplot2 = plot(plt.t, plt.prefShape(4,:),'r--');
+set( hplot2,'LineWidth', 2);
+legend('q_4','preferred shape q_4','AutoUpdate','off');
+xlabel('time [s]');
+ylabel('Angular Position [rad]')
 
 
 
@@ -565,12 +579,12 @@ ylabel('Activation')
 %% Activations
 % figure(16);
 % 
-% hplot1 = plot(plt.t, plt.Ala);
+% hplot1 = plot(plt.t, plt.A.ps);
 % set( hplot1,'LineWidth', 2);
 % hold on;
-% % hplot2 = plot(plt.t, plt.A.all);
-% % set( hplot2,'LineStyle','--','LineWidth', 2);
-% % hold on;
+% hplot2 = plot(plt.t, plt.A.all);
+% set( hplot2,'LineStyle','--','LineWidth', 2);
+% hold on;
 % hplot2 = plot(plt.t, plt.A.vc);
 % set( hplot2,'LineStyle','--','LineWidth', 2);
 % hold on;

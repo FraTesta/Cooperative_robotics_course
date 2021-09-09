@@ -35,22 +35,27 @@ uvms.A.vatt = eye(3) * uvms.Aa.vatt;
 uvms.A.ha = IncreasingBellShapedFunction(0.1, 0.2, 0, 1 , norm(uvms.v_rho)) * uvms.Aa.ha;
 uvms.A.act = DecreasingBellShapedFunction( uvms.Aact.minTre, uvms.Aact.maxTre, 0, 1 , uvms.v_altitude) * uvms.Aa.act;
 uvms.A.la = IncreasingBellShapedFunction(0, 2, 0, 1 , mission.phase_time) * uvms.Aa.la; %prima 0.5 come t
-
-% Caso misallignment dipedente da mission?time
-% uvms.A.lr = IncreasingBellShapedFunction(0, 2, 0, 1 , mission.phase_time) * uvms.Aa.lr;
 uvms.A.lr = DecreasingBellShapedFunction(0.5, 8, 0, 1 , uvms.v_altitude) * uvms.Aa.lr;
 % %combinazione mis, alt
 % uvms.A.lr = DecreasingBellShapedFunction(0.5, 8, 0, 0.7 , uvms.v_altitude) + uvms.Aa.lr;
 % %senza nulla
-
 %uvms.A.lr = 1 * uvms.Aa.lr;
 uvms.A.vc = eye(6) * uvms.Aa.vc ;
-uvms.A.t = eye(6) * uvms.Aa.t;
+if uvms.EX < 5
+    uvms.A.t = eye(6) * uvms.Aa.t;
+end 
 jl_th = 0.05;
 for j=1:7
 uvms.A.jl(j,j) =  DecreasingBellShapedFunction(uvms.jlmin(j), uvms.jlmin(j) + jl_th, 0, 1, uvms.q(j)) + IncreasingBellShapedFunction(uvms.jlmax(j) - jl_th, uvms.jlmax(j), 0, 1, uvms.q(j));
 end
 
+%% Ex 5
+if uvms.EX == 5
+    uvms.A.ha = eye(1);
+    uvms.A.t = eye(6);
+    uvms.A.ps = eye(4);
+    uvms.A.mu = 1;
+end 
 % uvms.A.ps = eye(4) * uvms.Aa.ps;
 % %% underactuation 
 % % select only the underactuated component (w_x) as explained in the notes

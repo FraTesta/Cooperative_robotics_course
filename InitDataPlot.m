@@ -68,6 +68,7 @@ function [plt] = InitDataPlot( maxloops, uvms)
     plt.qtre = 0;
 %% Prefered Shape
     plt.prefShape = [];
+    plt.A.ps = [];
 %% Ex6 
     plt.A.ua = 0;
     

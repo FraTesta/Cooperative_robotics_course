@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 30;
+end_time = 21;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -49,7 +49,7 @@ uvms.p = uvms.v_init_pose;
 
 % initial goal position definition
 % slightly over the top of the pipe
-distanceGoalWrtPipe = 0.3;
+distanceGoalWrtPipe = 0.3; 
 uvms.goalPosition = pipe_center + (pipe_radius + distanceGoalWrtPipe)*[0 0 1]';
 uvms.wRg = rotation(pi,0,0);
 uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
@@ -79,35 +79,36 @@ for t = 0:deltat:end_time
     Qp = eye(13); 
     % add all the other tasks here!
     % the sequence of iCAT_task calls defines the priority
-    [Qp, rhop] = iCAT_task(uvms.A.jl_min,  uvms.Jjl,    Qp, rhop, uvms.xdot.jl_min,  0.0001,   0.01, 10); 
-    [Qp, rhop] = iCAT_task(uvms.A.jl_max,  uvms.Jjl,    Qp, rhop, uvms.xdot.jl_max,  0.0001,   0.01, 10); 
+    [Qp, rhop] = iCAT_task(uvms.A.jl,  uvms.Jjl,    Qp, rhop, uvms.xdot.jl,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp, rhop, uvms.xdot.mu, 0.000001, 0.0001, 10);
     [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);
-    [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
-%     [Qp, rhop] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp, rhop, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
-%     [Qp, rhop] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp, rhop, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame    
-    [Qp, rhop] = iCAT_task(uvms.A.ps,    uvms.Jps,    Qp, rhop, uvms.xdot.ps,  0.0001,   0.01, 10);
+
+    [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);    
+    if uvms.EX == 51
+        [Qp, rhop] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp, rhop, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
+        [Qp, rhop] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp, rhop, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame  
+    end 
+%     [Qp, rhop] = iCAT_task(uvms.A.ps,    uvms.Jps,    Qp, rhop, uvms.xdot.ps,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
     % get the two variables for integration
     uvms.q_dot = rhop(1:7);
     uvms.p_dot = rhop(8:13);
     
+
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;
-    % disturbances on wx of the vehicle
-%     uvms.p_dot(4) = uvms.p_dot(4) + 0.2*sin(2*pi*0.5*t);
-    % beware: p_dot should be projected on <v>
+
     uvms.p = integrate_vehicle(uvms.p, uvms.p_dot, deltat);
     
     % check if the mission phase should be changed
-    [uvms, mission] = UpdateMissionPhase(uvms, mission);
+    [uvms, mission] = UpdateMissionPhaseDex(uvms, mission);
     
     % send packets to Unity viewer
     SendUdpPackets(uvms,wuRw,vRvu,uArm,uVehicle);
         
     % collect data for plots
-    plt = UpdateDataPlot(plt,uvms,t,loop);
+    plt = UpdateDataPlot(plt,uvms,t,loop, mission);
     loop = loop + 1;
    
     % add debug prints here
@@ -125,6 +126,6 @@ end
 fclose(uVehicle);
 fclose(uArm);
 
-PrintPlot(plt);
+PrintPlot(plt, uvms);
 
 end

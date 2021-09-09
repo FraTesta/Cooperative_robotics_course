@@ -6,6 +6,8 @@ function [ plt ] = UpdateDataPlot( plt, uvms, t, loop, mission )
 
 % you can add whatever sampling you need to do additional plots
 % plots are done in the PrintPlot.m script
+%% ROBOT = 1 = robostsim ; ROBOT = 2 Destrov
+ROBOT = 2;
 
 plt.t(loop) = t;
 
@@ -52,8 +54,10 @@ plt.final_t_pose = uvms.wTt(1:3,4);
 
 %% Horizontal attitude control
 plt.misAlig.x(:,loop) = uvms.v_rho(1);% misalignment vector 
-plt.misAlig.y(:,loop) = uvms.v_rho(2);
-plt.misAlig.z(:,loop) = uvms.v_rho(3);
+if ROBOT == 1
+    plt.misAlig.y(:,loop) = uvms.v_rho(2);
+    plt.misAlig.z(:,loop) = uvms.v_rho(3);
+end 
 plt.v_rho(:,loop) = norm(uvms.v_rho);
 
 
@@ -99,7 +103,8 @@ plt.qtre(:, loop) = uvms.q(3);
 % plt.A.jl_min(1:7,loop) = diag(uvms.A.jl_min);
 % plt.A.jl_max(1:7,loop) = diag(uvms.A.jl_max);
 %% Prefered Shape
-plt.prefShape(:,loop) = uvms.pref_shape;
+plt.prefShape(1:4,loop) = uvms.pref_shape;
+plt.A.ps(1:4, loop) = diag(uvms.A.ps); 
 %% Ex6 
 % plt.A.ua(:,loop) = uvms.A.ua(4,4);
 %% Update time
