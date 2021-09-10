@@ -110,7 +110,6 @@ plt.A.ps(1:4, loop) = diag(uvms.A.ps);
 %% Update time
 if mission.phase == 2  
     plt.changePhaseTime = uvms.changePhaseTime;
-    plt.changePhaseTime 
 end 
 if mission.phase == 3
     plt.changePhaseTime2 = uvms.changePhaseTime2;

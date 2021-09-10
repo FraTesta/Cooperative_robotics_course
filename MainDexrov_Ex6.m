@@ -107,8 +107,8 @@ for t = 0:deltat:end_time
         
         % TPIK2
         [Qp2, rhop2] = iCAT_task(uvms.A.ua,  uvms.Jua,    Qp, rhop, uvms.xdot.ua,  0.0001,   0.01, 10);
-        [Qp2, rhop2] = iCAT_task(uvms.A.jl,   uvms.Jjl,   Qp, rhop, uvms.xdot.jl, 0.000001, 0.0001, 10);
-        [Qp2, rhop2] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp1, rhop1, uvms.xdot.mu, 0.000001, 0.0001, 10);
+        [Qp2, rhop2] = iCAT_task(uvms.A.jl,   uvms.Jjl,   Qp2, rhop2, uvms.xdot.jl, 0.000001, 0.0001, 10);
+        [Qp2, rhop2] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp2, rhop2, uvms.xdot.mu, 0.000001, 0.0001, 10);
         [Qp2, rhop2] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp2, rhop2, uvms.xdot.t,  0.0001,   0.01, 10);
         [Qp2, rhop2] = iCAT_task(uvms.A.ps,    uvms.Jps,    Qp2, rhop2, uvms.xdot.ps,  0.0001,   0.01, 10);
         [Qp2, rhop2] = iCAT_task(eye(13),     eye(13),    Qp2, rhop2, zeros(13,1),  0.0001,   0.01, 10);
@@ -120,9 +120,9 @@ for t = 0:deltat:end_time
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;
     %% disturbances on wx of the vehicle
-%     uvms.p_dot(4) = uvms.p_dot(4) + 0.2*sin(2*pi*0.5*t);
+    uvms.p_dot(4) = uvms.p_dot(4) + 0.2*sin(2*pi*0.5*t);
        uvms.p_dot(4) = uvms.p_dot(4) + 0.2*sin(2*pi*0.5*t); % wx 
-       uvms.p_dot(2) = uvms.p_dot(2) + 0.2*sin(2*pi*0.5*t); % vy
+%        uvms.p_dot(2) = uvms.p_dot(2) + 0.2*sin(2*pi*0.5*t); % vy
     uvms.p = integrate_vehicle(uvms.p, uvms.p_dot, deltat);
     
     % check if the mission phase should be changed

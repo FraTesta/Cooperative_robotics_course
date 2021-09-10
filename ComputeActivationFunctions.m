@@ -6,6 +6,7 @@ function [uvms] = ComputeActivationFunctions(uvms, mission)
 
 % arm tool position control
 %uvms.A.t = eye(6);   % da sostituire in altri es
+uvms.EX = 6;
 
  uvms.Aact.minTre = 1;
  uvms.Aact.maxTre = 1.3;

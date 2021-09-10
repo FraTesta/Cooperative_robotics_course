@@ -15,7 +15,6 @@ legend('q_1','q_2','q_3','q_4','q_5','q_6','q_7');
 if ACTIONS == 1
     hold on;
     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'}); 
-    plt.changePhaseTime 
 end 
 if ACTIONS == 2
     hold on;
