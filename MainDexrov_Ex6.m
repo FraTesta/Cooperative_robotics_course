@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 20;
+end_time = 30;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -120,13 +120,23 @@ for t = 0:deltat:end_time
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;
     %% disturbances on wx of the vehicle
-    uvms.p_dot(4) = uvms.p_dot(4) + 0.2*sin(2*pi*0.5*t);
-       uvms.p_dot(4) = uvms.p_dot(4) + 0.2*sin(2*pi*0.5*t); % wx 
+    % 0.2
+%        uvms.p_dot(4) = uvms.p_dot(4) + 0.2*sin(2*pi*0.5*t); % wx 
 %        uvms.p_dot(2) = uvms.p_dot(2) + 0.2*sin(2*pi*0.5*t); % vy
+    % 0.8
+%        uvms.p_dot(4) = uvms.p_dot(4) + 1*sin(2*pi*0.5*t); % wx 
+%        uvms.p_dot(2) = uvms.p_dot(2) + 1*sin(2*pi*0.5*t); % vy
+    % 1.5 Hz
+%        uvms.p_dot(4) = uvms.p_dot(4) + 0.3*sin(2*pi*1.5*t); % wx 
+%        uvms.p_dot(2) = uvms.p_dot(2) + 0.3*sin(2*pi*1.5*t); % vy
+    % 1 Hz 
+       uvms.p_dot(4) = uvms.p_dot(4) + 1*sin(2*pi*1.5*t); % wx 
+       uvms.p_dot(2) = uvms.p_dot(2) + 1*sin(2*pi*1.5*t); % vy
+        
     uvms.p = integrate_vehicle(uvms.p, uvms.p_dot, deltat);
     
     % check if the mission phase should be changed
-     mission.phase_time = mission.phase_time + deltat;
+     mission.phase_time = mission.phase_time + deltat
     [uvms, mission] = UpdateMissionPhaseDex(uvms, mission);
     
     % send packets to Unity viewer

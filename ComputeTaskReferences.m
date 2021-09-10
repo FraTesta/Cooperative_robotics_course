@@ -11,8 +11,8 @@ function [uvms] = ComputeTaskReferences(uvms, mission)
 
 uvms.xdot.t = 0.4 * [ang; lin]; % generation of the reference velocities where 0.2 is the Lambda (see notes)
 % limit the requested velocities...
-uvms.xdot.t(1:3) = Saturate(uvms.xdot.t(1:3), 0.6);
-uvms.xdot.t(4:6) = Saturate(uvms.xdot.t(4:6), 0.6);
+uvms.xdot.t(1:3) = Saturate(uvms.xdot.t(1:3), 0.8);
+uvms.xdot.t(4:6) = Saturate(uvms.xdot.t(4:6), 0.8);
 
 %% Manipulability
 uvms.xdot.mu = 0.1 *(0.12 - uvms.mu);

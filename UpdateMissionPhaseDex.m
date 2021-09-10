@@ -49,8 +49,8 @@ if uvms.EX == 6
 %             planar dinstance from the goal (only along x and y)
             if(norm(uvms.wTgv - uvms.wTv) < 0.5) % if it is under 10 cm
                 disp('---Navigation Accomplished---')
-                mission.endtime.one = mission.phase_time;
                 mission.phase = 2;
+                uvms.changePhaseTime = mission.phase_time;
                 mission.phase_time = 0;
             end
          case 2

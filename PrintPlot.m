@@ -115,38 +115,38 @@ end
 
 %% Path to the goal
 % TOOL = 1 con tool , TOOL = 0 no tool
-TOOL = 1;
-figure(5);
-plot3(plt.v_goal.x, plt.v_goal.y, plt.v_goal.z); % v path
-if TOOL == 1
-    hold on;
-    plot3(plt.tool_path.x, plt.tool_path.y, plt.tool_path.z,'Color','g'); % tool path
-end
-
-hold on;
-scatter3(plt.v_initPos(1), plt.v_initPos(2), plt.v_initPos(3),'MarkerFaceColor',[0 1 0]); % v start
-hold on;
-scatter3(plt.final_v_pose(1), plt.final_v_pose(2), plt.final_v_pose(3)); % v final
-if TOOL == 1
-    hold on;
-    scatter3(plt.final_t_pose(1), plt.final_t_pose(2), plt.final_t_pose(3),'MarkerFaceColor',[0 1 0]); % tool final
-end
-hold on;
-scatter3(plt.v_goalPos(1), plt.v_goalPos(2), plt.v_goalPos(3),'MarkerFaceColor',[1 0 0]); % vehicle goal
-if TOOL == 1
-    hold on;
-    scatter3(plt.goalPos(1), plt.goalPos(2), plt.goalPos(3),'MarkerFaceColor',[0 0 1]); % tool goal
-end
-xlabel('x [m]');
-ylabel('y [m]');
-zlabel('z [m]');
-title("Path towards goals");
-%set(hplot, 'LineWidth', 1);
-if TOOL == 1
-    legend( 'Path of the vehicle frame','Path of the tool frame','Vehicle Start position',' Vehicle Final position','Final tool position','Vehicle Goal position','Tool Goal position','AutoUpdate','off');
-else
-    legend( 'Path of the vehicle frame','Vehicle Start position',' Vehicle Final position','Vehicle Goal position','AutoUpdate','off');
-end
+% TOOL = 1;
+% figure(5);
+% plot3(plt.v_goal.x, plt.v_goal.y, plt.v_goal.z); % v path
+% if TOOL == 1
+%     hold on;
+%     plot3(plt.tool_path.x, plt.tool_path.y, plt.tool_path.z,'Color','g'); % tool path
+% end
+% 
+% hold on;
+% scatter3(plt.v_initPos(1), plt.v_initPos(2), plt.v_initPos(3),'MarkerFaceColor',[0 1 0]); % v start
+% hold on;
+% scatter3(plt.final_v_pose(1), plt.final_v_pose(2), plt.final_v_pose(3)); % v final
+% if TOOL == 1
+%     hold on;
+%     scatter3(plt.final_t_pose(1), plt.final_t_pose(2), plt.final_t_pose(3),'MarkerFaceColor',[0 1 0]); % tool final
+% end
+% hold on;
+% scatter3(plt.v_goalPos(1), plt.v_goalPos(2), plt.v_goalPos(3),'MarkerFaceColor',[1 0 0]); % vehicle goal
+% if TOOL == 1
+%     hold on;
+%     scatter3(plt.goalPos(1), plt.goalPos(2), plt.goalPos(3),'MarkerFaceColor',[0 0 1]); % tool goal
+% end
+% xlabel('x [m]');
+% ylabel('y [m]');
+% zlabel('z [m]');
+% title("Path towards goals");
+% %set(hplot, 'LineWidth', 1);
+% if TOOL == 1
+%     legend( 'Path of the vehicle frame','Path of the tool frame','Vehicle Start position',' Vehicle Final position','Final tool position','Vehicle Goal position','Tool Goal position','AutoUpdate','off');
+% else
+%     legend( 'Path of the vehicle frame','Vehicle Start position',' Vehicle Final position','Vehicle Goal position','AutoUpdate','off');
+% end
 
 
 %% Horizontal Attitude Misalignment vector  (unit vector)
@@ -469,61 +469,61 @@ legend( 'Activation function','AutoUpdate','off');
 % xlabel('time [s]');
 % ylabel('Activation')
 %% Joits limits
-% figure(12);
-% subplot(3,1,1);
-% title('Activation function joint limits');
-% hplot1 = plot(plt.t, plt.A.jl);
-% set( hplot1,'LineWidth', 2);
-% if ACTIONS == 1
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-% end 
-% if ACTIONS == 2
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-%     hold on;
-%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-% end 
-% legend('Aq1','Aq2','Aq3','Aq4','Aq5','Aq6','Aq7','AutoUpdate','off');
-% xlabel('time [s]');
-% ylabel('Activation value');
-% 
-% subplot(3,1,2);
-% hplot1 = plot(plt.t, norm(diag(plt.A.jl)));
-% set( hplot1,'LineWidth', 2);
-% if ACTIONS == 1
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-% end 
-% if ACTIONS == 2
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-%     hold on;
-%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-% end 
-% legend('Norm of the activation function')
-% xlabel('time [s]');
-% ylabel('activation value');
-% 
-% subplot(3,1,3);
-% title('Disturbed q3  evolution')
-% hplot1 = plot(plt.t, plt.qtre);
-% set( hplot1,'LineWidth', 2);
-% 
-% hold on;
-% yline(uvms.jlmin(3),'--r',{'min Joint Limit'});
-% if ACTIONS == 1
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-% end 
-% if ACTIONS == 2
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-%     hold on;
-%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-% end 
-% xlabel('time [s]');
-% ylabel('[rad]');
+figure(12);
+subplot(3,1,1);
+title('Activation function joint limits');
+hplot1 = plot(plt.t, plt.A.jl);
+set( hplot1,'LineWidth', 2);
+if ACTIONS == 1
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+end 
+if ACTIONS == 2
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+    hold on;
+    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+end 
+legend('Aq1','Aq2','Aq3','Aq4','Aq5','Aq6','Aq7','AutoUpdate','off');
+xlabel('time [s]');
+ylabel('Activation value');
+
+subplot(3,1,2);
+hplot1 = plot(plt.t, norm(diag(plt.A.jl)));
+set( hplot1,'LineWidth', 2);
+if ACTIONS == 1
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+end 
+if ACTIONS == 2
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+    hold on;
+    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+end 
+legend('Norm of the activation function')
+xlabel('time [s]');
+ylabel('activation value');
+
+subplot(3,1,3);
+title('Disturbed q3  evolution')
+hplot1 = plot(plt.t, plt.qtre);
+set( hplot1,'LineWidth', 2);
+
+hold on;
+yline(uvms.jlmin(3),'--r',{'min Joint Limit'});
+if ACTIONS == 1
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+end 
+if ACTIONS == 2
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+    hold on;
+    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+end 
+xlabel('time [s]');
+ylabel('[rad]');
 
 
 %% Prefered Shape 
