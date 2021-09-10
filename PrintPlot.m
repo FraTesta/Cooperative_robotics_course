@@ -5,7 +5,7 @@ function [ ] = PrintPlot( plt, uvms )
 
 % ACTIONS = 0 % no actions
 % ACTIONS = 1 % 2 actions
-ACTIONS = 0;
+ACTIONS = 1;
 
 figure(1);
 subplot(2,1,1);
@@ -14,7 +14,8 @@ set(hplot, 'LineWidth', 1);
 legend('q_1','q_2','q_3','q_4','q_5','q_6','q_7');
 if ACTIONS == 1
     hold on;
-    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'}); 
+    plt.changePhaseTime 
 end 
 if ACTIONS == 2
     hold on;
@@ -114,40 +115,40 @@ end
 % legend('Amu', 'Aha');
 
 %% Path to the goal
-%TOOL = 1 con tool , TOOL = 0 no tool
-% TOOL = 1;
-% figure(5);
-% plot3(plt.v_goal.x, plt.v_goal.y, plt.v_goal.z); % v path
-% if TOOL == 1
-%     hold on;
-%     plot3(plt.tool_path.x, plt.tool_path.y, plt.tool_path.z,'Color','g'); % tool path
-% end
-% 
-% hold on;
-% scatter3(plt.v_initPos(1), plt.v_initPos(2), plt.v_initPos(3),'MarkerFaceColor',[0 1 0]); % v start
-% hold on;
-% scatter3(plt.final_v_pose(1), plt.final_v_pose(2), plt.final_v_pose(3)); % v final
-% if TOOL == 1
-%     hold on;
-%     scatter3(plt.final_t_pose(1), plt.final_t_pose(2), plt.final_t_pose(3),'MarkerFaceColor',[0 1 0]); % tool final
-% end
-% hold on;
-% scatter3(plt.v_goalPos(1), plt.v_goalPos(2), plt.v_goalPos(3),'MarkerFaceColor',[1 0 0]); % vehicle goal
-% if TOOL == 1
-%     hold on;
-%     scatter3(plt.goalPos(1), plt.goalPos(2), plt.goalPos(3),'MarkerFaceColor',[0 0 1]); % tool goal
-% end
-% xlabel('x [m]');
-% ylabel('y [m]');
-% zlabel('z [m]');
-% title("Path towards goals");
-% %set(hplot, 'LineWidth', 1);
-% if TOOL == 1
-%     legend( 'Path of the vehicle frame','Path of the tool frame','Vehicle Start position',' Vehicle Final position','Final tool position','Vehicle Goal position','Tool Goal position','AutoUpdate','off');
-% else
-%     legend( 'Path of the vehicle frame','Vehicle Start position',' Vehicle Final position','Vehicle Goal position','AutoUpdate','off');
-% end
-% 
+% TOOL = 1 con tool , TOOL = 0 no tool
+TOOL = 1;
+figure(5);
+plot3(plt.v_goal.x, plt.v_goal.y, plt.v_goal.z); % v path
+if TOOL == 1
+    hold on;
+    plot3(plt.tool_path.x, plt.tool_path.y, plt.tool_path.z,'Color','g'); % tool path
+end
+
+hold on;
+scatter3(plt.v_initPos(1), plt.v_initPos(2), plt.v_initPos(3),'MarkerFaceColor',[0 1 0]); % v start
+hold on;
+scatter3(plt.final_v_pose(1), plt.final_v_pose(2), plt.final_v_pose(3)); % v final
+if TOOL == 1
+    hold on;
+    scatter3(plt.final_t_pose(1), plt.final_t_pose(2), plt.final_t_pose(3),'MarkerFaceColor',[0 1 0]); % tool final
+end
+hold on;
+scatter3(plt.v_goalPos(1), plt.v_goalPos(2), plt.v_goalPos(3),'MarkerFaceColor',[1 0 0]); % vehicle goal
+if TOOL == 1
+    hold on;
+    scatter3(plt.goalPos(1), plt.goalPos(2), plt.goalPos(3),'MarkerFaceColor',[0 0 1]); % tool goal
+end
+xlabel('x [m]');
+ylabel('y [m]');
+zlabel('z [m]');
+title("Path towards goals");
+%set(hplot, 'LineWidth', 1);
+if TOOL == 1
+    legend( 'Path of the vehicle frame','Path of the tool frame','Vehicle Start position',' Vehicle Final position','Final tool position','Vehicle Goal position','Tool Goal position','AutoUpdate','off');
+else
+    legend( 'Path of the vehicle frame','Vehicle Start position',' Vehicle Final position','Vehicle Goal position','AutoUpdate','off');
+end
+
 
 %% Horizontal Attitude Misalignment vector  (unit vector)
 % figure(6);
@@ -275,23 +276,23 @@ ylabel('[m]');
 set(hplot,'Color','green', 'LineWidth', 2);
 legend('Misalignment norm','AutoUpdate','off');
 %% Horizontal altidtude Activation function
-% figure(8);
-% hplot = plot(plt.t, plt.misActFunc);
-% title('Activation Function of Horizontal altitude');
-% if ACTIONS == 1
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-% end 
-% if ACTIONS == 2
-%     hold on;
-%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
-%     hold on;
-%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
-% end 
-% xlabel('time [s]');
-% ylabel('Activation value');
-% set( hplot, 'LineWidth', 2);
-% legend( 'Activation function','AutoUpdate','off');
+figure(8);
+hplot = plot(plt.t, plt.misActFunc);
+title('Activation Function of Horizontal altitude');
+if ACTIONS == 1
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+end 
+if ACTIONS == 2
+    hold on;
+    xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+    hold on;
+    xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+end 
+xlabel('time [s]');
+ylabel('Activation value');
+set( hplot, 'LineWidth', 2);
+legend( 'Activation function','AutoUpdate','off');
 %% Altitude 
 % figure(9);
 % subplot(2,1,1);
@@ -527,48 +528,88 @@ legend('Misalignment norm','AutoUpdate','off');
 
 
 %% Prefered Shape 
-figure(14);
-subplot(2,2,1);
-hplot1 = plot(plt.t, plt.q(1,:));
-set( hplot1,'LineWidth', 2);
-hold on;
-hplot2 = plot(plt.t, plt.prefShape(1,:),'r--');
-set( hplot2,'LineWidth', 2);
-legend('q_1','preferred shape q_1','AutoUpdate','off');
-xlabel('time [s]');
-ylabel('Angular Position [rad]')
-
-subplot(2,2,2);
-hplot1 = plot(plt.t, plt.q(2,:));
-set( hplot1,'LineWidth', 2);
-hold on;
-hplot2 = plot(plt.t, plt.prefShape(2,:),'r--');
-set( hplot2,'LineWidth', 2);
-legend('q_2','preferred shape q_2','AutoUpdate','off');
-xlabel('time [s]');
-ylabel('Angular Position [rad]')
-
-subplot(2,2,3);
-hplot1 = plot(plt.t, plt.q(3,:));
-set( hplot1,'LineWidth', 2);
-hold on;
-hplot2 = plot(plt.t, plt.prefShape(3,:),'r--');
-set( hplot2,'LineWidth', 2);
-legend('q_3','preferred shape q_3','AutoUpdate','off');
-xlabel('time [s]');
-ylabel('Angular Position [rad]')
-
-subplot(2,2,4);
-hplot1 = plot(plt.t, plt.q(4,:));
-set( hplot1,'LineWidth', 2);
-
-hold on;
-hplot2 = plot(plt.t, plt.prefShape(4,:),'r--');
-set( hplot2,'LineWidth', 2);
-legend('q_4','preferred shape q_4','AutoUpdate','off');
-xlabel('time [s]');
-ylabel('Angular Position [rad]')
-
+% figure(14);
+% subplot(2,2,1);
+% hplot1 = plot(plt.t, plt.q(1,:));
+% set( hplot1,'LineWidth', 2);
+% hold on;
+% hplot2 = plot(plt.t, plt.prefShape(1,:),'r--');
+% set( hplot2,'LineWidth', 2);
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% legend('q_1','preferred shape q_1','AutoUpdate','off');
+% xlabel('time [s]');
+% ylabel('Angular Position [rad]')
+% 
+% subplot(2,2,2);
+% hplot1 = plot(plt.t, plt.q(2,:));
+% set( hplot1,'LineWidth', 2);
+% hold on;
+% hplot2 = plot(plt.t, plt.prefShape(2,:),'r--');
+% set( hplot2,'LineWidth', 2);
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% legend('q_2','preferred shape q_2','AutoUpdate','off');
+% xlabel('time [s]');
+% ylabel('Angular Position [rad]')
+% 
+% subplot(2,2,3);
+% hplot1 = plot(plt.t, plt.q(3,:));
+% set( hplot1,'LineWidth', 2);
+% hold on;
+% hplot2 = plot(plt.t, plt.prefShape(3,:),'r--');
+% set( hplot2,'LineWidth', 2);
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% legend('q_3','preferred shape q_3','AutoUpdate','off');
+% xlabel('time [s]');
+% ylabel('Angular Position [rad]')
+% 
+% subplot(2,2,4);
+% hplot1 = plot(plt.t, plt.q(4,:));
+% set( hplot1,'LineWidth', 2);
+% 
+% hold on;
+% hplot2 = plot(plt.t, plt.prefShape(4,:),'r--');
+% set( hplot2,'LineWidth', 2);
+% if ACTIONS == 1
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+% end 
+% if ACTIONS == 2
+%     hold on;
+%     xline(plt.changePhaseTime,'--r',{'Navigation',' Accomplished'});
+%     hold on;
+%     xline(plt.changePhaseTime2,'--r',{'Landing','Accompished'});
+% end 
+% legend('q_4','preferred shape q_4','AutoUpdate','off');
+% xlabel('time [s]');
+% ylabel('Angular Position [rad]')
+% 
 
 
 %% Ex 6 

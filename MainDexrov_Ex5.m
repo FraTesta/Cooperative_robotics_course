@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 21;
+end_time = 15;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -84,7 +84,7 @@ for t = 0:deltat:end_time
     [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);
 
     [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);    
-    if uvms.EX == 51
+    if uvms.EX == 51 || uvms.EX == 52
         [Qp, rhop] = iCAT_task(uvms.A.vpos,  uvms.Jvpos,    Qp, rhop, uvms.xdot.vpos,  0.0001,   0.01, 10); % Ex1 position control task to reach the goal with the <v> frame
         [Qp, rhop] = iCAT_task(uvms.A.vatt,  uvms.Jvatt,    Qp, rhop, uvms.xdot.vatt,  0.0001,   0.01, 10); % Ex1 altitude control task to reach the goal with the <v> frame  
     end 
@@ -102,6 +102,7 @@ for t = 0:deltat:end_time
     uvms.p = integrate_vehicle(uvms.p, uvms.p_dot, deltat);
     
     % check if the mission phase should be changed
+     mission.phase_time = mission.phase_time + deltat;
     [uvms, mission] = UpdateMissionPhaseDex(uvms, mission);
     
     % send packets to Unity viewer
